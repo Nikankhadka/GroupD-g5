@@ -92,3 +92,37 @@ if(check=="alposted"){
  
 }
 }
+
+
+
+
+//for delete crops 
+exports.deletecrop=async(req,res)=>{
+
+  
+  const category=req.params.category
+  console.log(category)
+  console.log(req.params.id)
+  const check=await mod.deletecrop(category,req.params.id)
+  if(check=="deleted"){
+    res.send("deleted")
+  }else{
+    res.send("notdeleted")
+  }
+}
+
+
+//update crop
+exports.updatecrop=async(req, res)=>{
+  //using route paramets toa accept a single
+ const mbody=req.body.update
+  console.log(mbody)
+  console.log(req.params.category)
+const check= await mod.updatecrop( req.params.category,mbody)
+if(check=="notmatched"){
+    res.send("enter valid category and with valid crop and farmer id")
+}else{
+  res.status(200).send("updated");
+ 
+}
+}

@@ -206,3 +206,67 @@ exports.cropsinfo=async(category)=>{
 }
 
 
+
+
+
+//model for deleting crops 
+exports.deletecrop=async(category,id)=>{
+ 
+  connection=await conn()
+
+  const[rows,feilds]=await connection.query("SELECT * FROM "+category+" WHERE crop_id='"+id+"'")
+  let farmer_id=rows[0].farmer_id;
+  console.log("got farmer id")
+
+  //delete row of crop info
+  await connection.query("delete from "+category+" where crop_id='"+id+"'")
+  console.log("deleted row of crop info")
+
+  //now use above farmer id to change info in farmer table 
+  const[rows1,feilds1]=await connection.query("SELECT * FROM `farmer` WHERE farmer_id='"+farmer_id+"'")
+  var posting=rows1[0].posting-1
+  if(posting==0){
+    await connection.query("delete from `farmer` where farmer_id='"+farmer_id+"'")
+    console.log("deleted the farmer information 0 posting")
+  }else{
+    await connection.query("update `farmer` set posting='"+posting+"' where farmer_id='"+farmer_id+"'")
+    console.log("farmer posting updated")
+  }
+
+  return "deleted"
+
+
+}
+    
+    
+
+
+
+
+//for updating crop info
+
+//crops posting model
+exports.updatecrop=async(category,ci)=>{
+  connection=await conn()
+  
+  
+
+//check if that specific user has already posted the same crops detail already
+const [rows, fields] = await connection.query("SELECT * FROM "+category+" where farmer_id='"+ci.farmer_id+"' and crop_name='"+ci.crop_name+"' ")
+if(typeof rows[0]=='object'){
+  console.log("category farmerid and cropname matched")
+
+  await connection.query("update "+category+" set farmers_rate='"+ci.farmers_rate+"',market_rate='"+ci.farmers_rate+"',crop_details='"+ci.crop_details+"',image='"+ci.image+"' where farmer_id='"+ci.farmer_id+"' and crop_name='"+ci.crop_name+"'")
+
+  console.log("details update bhayo")
+  return "updated"
+
+
+
+}
+else{
+  return "notmatched"
+}
+
+
+}

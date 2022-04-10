@@ -23,7 +23,8 @@ module.exports = async(app) => {
 
  //admin crops meeting 
  router.post("/crops/:category",await controllers.postcrop);
-
+ router.delete("/crops/:category/:id",await controllers.deletecrop);
+ router.patch("/crops/:category",await controllers.updatecrop);
 
 
 
