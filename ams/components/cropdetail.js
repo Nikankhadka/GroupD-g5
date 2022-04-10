@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 
 export default function Cropd(){
     const [category, setcategory] = useState([]);
-    const [cat, setcat] = useState("kkkkk");      
+    const [cat, setcat] = useState("");      
     const [crop, setcrop] = useState([]);   
     
     //use react use effect hook which is similar to lifecycle components basically works after loading the page
@@ -24,16 +24,16 @@ export default function Cropd(){
     
 
     //initially load the crop details with default value passed on page load 
-      useEffect(async()=>{
+    //   useEffect(async()=>{
         
         
-        await  axios.get(`http://localhost:2900/api/v1/cropinfo/${cat}`)
-         .then(result => {
-            console.log(result.data)
-            setcrop(result.data);
+    //     await  axios.get(`http://localhost:2900/api/v1/cropinfo/${cat}`)
+    //      .then(result => {
+    //         console.log(result.data)
+    //         setcrop(result.data);
             
             
-         })},[]);
+    //      })},[]);
 
 
 
@@ -69,21 +69,71 @@ export default function Cropd(){
 
     {/* mapping the card information gotten after  getting information from api and updating the state  */}
 
-        {crop.map(c=>(<div className="crop">
-
+        {crop.map(c=>(<div className="wrapper">
+                                <div class="left">
                                     <img src={c.image} className="cropimg"/>
-                                    <p className="ptag">{c.crop_name}</p>
-                                    <p>Detail:{c.crop_details}</p>
-                                    <p>Crop_id:{c.crop_id}</p>
-                                    <p>Market-rate:{c.market_rate} Rs/Kg</p>
-                                    <p>Farmer-rate:{c.farmers_rate} Rs/Kg</p>
-                                    <h2>Farmer Details:</h2>
-                                    <p>Farmer:{c.name}</p>
-                                    <p>Id:{c.farmer_id}</p>
-                                    <p>Total-posting:{c.posting}</p>
-                                    <p>Province:{c.province}</p>
-                                    <p>Ward:{c.ward}</p>
-                                    <p>Family:{c.family}</p>
+                                    <p className="ptag p_bold">{c.crop_name}</p>
+                                </div> 
+                                <div class="right">
+
+                                    <div class="finfo">   
+                                        <h2>Information</h2>
+                                        <div class="info_data">
+                                            <div class="data d_m">
+                                                <p><span class="b_letters">Detail</span>:{c.crop_details}</p>
+                                            </div>
+                                            <div class="data d_m">
+                                                <p><span class="b_letters">Crop_id</span>:{c.crop_id}</p>
+                                            </div>
+
+                                            <div class="data">
+                                                <p><span class="b_letters">Market-rate</span>:{c.market_rate} Rs/Kg</p>
+                                            </div>
+                                            <div class="data">
+                                                <p><span class="b_letters">Farmer-rate</span>:{c.farmers_rate} Rs/Kg</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="f_details">   
+                                        <h2>Farmer Details:</h2>
+                                        <div class="f_data">
+                                            <div class="data">
+                                                <p><span class="b_letters l">Farmer</span>:{c.name}</p>
+                                            </div>
+                                            <div class="data">
+                                                <p><span class="b_letters l">Id</span>:{c.farmer_id}</p>
+                                            </div>
+                                            <div class="data l_m">
+                                                <p><span class="b_letters ">Total-posting</span>:{c.posting}</p>
+                                            </div>
+                                            <div class="data l_m">
+                                                <p><span class="b_letters ">Province</span>:{c.province}</p>
+                                            </div>
+                                            <div class="data">
+                                                <p><span class="b_letters">Ward</span>:{c.ward}</p>
+                                            </div>
+                                            <div class="data">
+                                                <p><span class="b_letters">Family</span>:{c.family}</p>
+                                            </div>
+                                            
+
+                                        </div>
+
+                                    </div>
+
+
+                                        
+                                        
+                                        
+                                        
+                                       
+                                        
+                                       
+                                        
+                                        
+                                </div>   
                                 </div>))}
         </div>
        
