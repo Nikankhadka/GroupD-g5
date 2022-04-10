@@ -1,0 +1,44 @@
+/* Nikan khadka */
+
+/* main body of the about us page */
+.About-body{
+width: 95%;
+margin: auto;
+text-align: center;
+}
+/* heading  */
+.headding{
+    padding: 2rem;
+}
+
+
+/* image and contnet */
+.tete{
+    display: flex;
+    flex-flow: row  ;
+    justify-content: center;
+    padding: 2rem;
+}
+#ii{
+    height: 312px;
+    width: 312px;
+    
+}
+
+
+.content{
+    width: 650px;
+    margin: 1rem;
+    padding: 1rem;
+}
+.content p h2{
+    display: inline-block;
+    padding: 1rem;
+}
+
+/* media query to make content flexible */
+@media (max-width: 768px) {
+    .tete{
+        flex-flow: row wrap;
+    }
+}

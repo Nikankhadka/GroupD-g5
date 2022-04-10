@@ -1,0 +1,56 @@
+
+.category{
+
+display: flex;
+flex-flow:row wrap;
+justify-content: center;
+align-items: center;
+}
+
+.head{
+    text-align: center;
+    margin-bottom: 1rem;
+}
+.category button{
+    
+    margin: 1rem;
+    padding:  0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 25px;
+    border: 1px solid black;
+    background-color: rgb(31, 30, 30);
+    color: aliceblue;
+}
+
+.category button:hover{
+    background-color: whitesmoke;
+    color: rgb(49, 121, 49);
+}
+
+/* main crops display */
+.cropsview{
+    border: 2px solid red;
+    width: 95%;
+    margin: auto;
+    display: flex;
+    flex-flow:row wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.crop{
+    border: 2px solid red;
+    
+    margin:1rem;
+    padding: 1rem;
+}
+.crop img{
+    width: 356px;
+    height: 256px;
+}
+.ptag{
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 800;
+}
