@@ -7,10 +7,15 @@ body {
 }
 
 a {
-  color: inherit;
+  color: red;
   text-decoration: none;
 }
 
 * {
   box-sizing: border-box;
 }
+
+
+
+
+

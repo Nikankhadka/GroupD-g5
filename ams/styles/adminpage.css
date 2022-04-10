@@ -1,0 +1,80 @@
+#head1{
+    padding:1rem;
+    text-align: center;
+}
+.adminlowerbody{
+    background-color: rgb(249, 229, 240);
+}
+
+
+.boxholder{
+    margin:auto;
+    margin-top:0.5rem;
+    width:95%;
+    display:flex;
+    flex-flow:row wrap;
+    justify-content:center;
+   align-items:center;
+    
+  
+
+}
+.box{
+    background-color: rgb(173, 236, 219);
+    text-align: center;
+    padding:1rem 2rem;
+    border: 2px solid rgb(24, 23, 23);
+    margin:1rem;
+    border-radius: 13px;
+}
+.box h2 {
+  font-size: 2rem;
+
+}
+.box p{
+    font-size:1rem;
+    font-weight:700;
+}
+
+
+
+
+/* admin page desgin */
+th, td {
+    border:1px solid rgb(194, 183, 183);
+    
+    margin:5px;
+    
+  }
+  
+  th{
+    background-color: rgb(163, 235, 202);
+  }
+  .head{
+    padding:1rem 2rem;
+    margin-left: 1rem;
+  }
+  
+  
+  
+  
+  
+  .table{
+    width:95%;
+   
+    margin:auto;
+    margin-top:1rem;
+    padding:1rem;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    overflow-x:auto;
+    border-collapse: collapse;
+  }
+
+
+  @media (max-width: 768px) {
+
+
+
+  }

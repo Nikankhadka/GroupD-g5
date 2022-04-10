@@ -1,0 +1,66 @@
+.nav1{
+     padding: 1rem;
+    display: flex;
+    flex-flow:row wrap;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 1px 3px rgb(0 0 0 / 10%), 0 2px 2px rgb(0 0 0 / 6%),
+    0 0 2px rgb(0 0 0 / 7%);
+    
+}
+.adimg{
+    height: 82px;
+    width: 82px;
+}
+.home{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 3rem;
+  
+}
+.home img{
+   padding: 1rem;
+   color: #262626;
+  transition: .8s;
+  z-index: 3;
+}
+
+.llink{
+    margin-right: 3rem;
+}
+.llink a{
+    font-size: 1rem;
+    margin:1rem 0.6rem;
+    color:rgb(11, 11, 11);
+    font-weight: 600;
+
+}
+.llink a:hover{
+    color: rgb(84, 146, 71);
+   
+}
+.home img:hover{
+    color: #fff;
+    transform: rotateY(360deg);
+}
+
+
+
+
+
+/* to make website responsive */
+@media (max-width: 768px){
+    .nav1{
+        justify-content:center;
+    }
+    .llink{
+        margin-right:0px;
+    }
+    .home{
+        margin-left: 0px;
+    }
+
+}
+
