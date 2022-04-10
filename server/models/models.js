@@ -245,7 +245,7 @@ exports.deletecrop=async(category,id)=>{
 
 //for updating crop info
 
-//crops posting model
+
 exports.updatecrop=async(category,ci)=>{
   connection=await conn()
   
@@ -269,4 +269,41 @@ else{
 }
 
 
+}
+
+
+
+
+
+/////famer info
+
+
+
+//for getting farmers liist
+exports.farmerinfo=async()=>{
+  //extablish connection with the database
+  connection=await conn()
+
+
+
+  const [rows, fields] = await connection.query("SELECT * FROM `farmer`")
+  console.log(rows)
+
+  return(rows)
+}
+
+
+
+
+
+
+//update farmers info
+exports.updatefarmer=async(ci)=>{
+
+  connection=await conn()
+
+  await connection.query("update `farmer` set name='"+ci.name+"',province='"+ci.province+"',ward='"+ci.ward+"',family='"+ci.family+"' where farmer_id='"+ci.farmer_id+"' ")
+
+  console.log("farmer info update bhayo")
+  return "updated"
 }

@@ -26,7 +26,9 @@ module.exports = async(app) => {
  router.delete("/crops/:category/:id",await controllers.deletecrop);
  router.patch("/crops/:category",await controllers.updatecrop);
 
-
+//farmer  info and update farmer info
+router.get("/farmer",await controllers.farmer);
+router.patch("/farmer",await controllers.updatefarmer);
 
 
 
