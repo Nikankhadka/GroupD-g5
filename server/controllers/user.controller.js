@@ -41,3 +41,19 @@ if(check=="match"){
 }
  
 }
+
+
+
+//handler for deletecategory by admin
+exports.delcategory=async(req, res)=>{
+  //using route paramets toa accept a single cat
+  const mbody=req.params.name;
+const check= await mod.delcategory(mbody)
+if(check=="nocat"){
+    res.send("category not available")
+}else{
+  res.status(200).send("deleted");
+ 
+}
+ 
+}

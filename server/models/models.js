@@ -76,6 +76,44 @@ exports.cropsinfo=async(category)=>{
 
 
 
+    
+   //model for delete the exiting category
+      exports.delcategory=async(category)=>{
+        connection=await conn()
+        
+        var exist=0;
+  
+  
+        //checking  exist
+        const [rows, fields] = await connection.query("SELECT * FROM `crops_category` ")
+        rows.forEach(e=>{
+          if(e.category==category){
+            exist=1;
+            console.log("match bhayo")
+          
+          }
+          else{
+            
+            console.log("match bhayena")
+          }
+        })
+  
+        //if category exist then ececute the query below
+        if(exist==1){
+          //this will insertt new catgeroy
+          await connection.query("delete from `crops_category` where category='"+category+"'")
+         await connection.query("DROP TABLE "+category+"")
+          
+  
+          console.log("crop category remo")
+          
+        }else{
+          return "nocat"
+          
+        }}
+  
+
+
 
 
 
