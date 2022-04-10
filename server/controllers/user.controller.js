@@ -25,3 +25,52 @@ exports.cropinfo=async(req, res)=>{
 
 
 
+
+//now for admin category settings
+
+//request handler for adding new crop category
+exports.newcategory=async(req, res)=>{
+  //using route paramets toa accept a single cat
+  const mbody=req.params.name;
+const check= await mod.newcategory(mbody)
+if(check=="match"){
+    res.send("category exist")
+}else{
+  res.status(200).send("posted");
+ 
+}
+ 
+}
+
+
+
+//handler for deletecategory by admin
+exports.delcategory=async(req, res)=>{
+  //using route paramets toa accept a single cat
+  const mbody=req.params.name;
+const check= await mod.delcategory(mbody)
+if(check=="nocat"){
+    res.send("category not available")
+}else{
+  res.status(200).send("deleted");
+ 
+}
+ 
+}
+
+
+
+//handler for update category
+exports.upcategory=async(req, res)=>{
+  //using route paramets toa accept a single cat
+ const mbody=req.body
+
+const check= await mod.updateCategory( req.params.name,mbody.name1)
+if(check=="nocat"){
+    res.send("category not available")
+}else{
+  res.status(200).send("updated");
+ 
+}
+}
+ 
