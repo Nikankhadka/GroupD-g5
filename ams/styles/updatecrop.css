@@ -1,0 +1,17 @@
+
+
+
+
+.update{
+    width:95%;
+    border: 1px solid red;
+    margin:auto;
+    padding:2rem;
+    display:flex;
+    flex-flow:row wrap;
+    justify-content:space-around;
+    align-items: center;
+}
+.title{
+    text-align:center;
+}

@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 
 export default function Cropd(){
     const [category, setcategory] = useState([]);
-    const [cat, setcat] = useState("newcat2");      
+    const [cat, setcat] = useState("kkkkk");      
     const [crop, setcrop] = useState([]);   
     
     //use react use effect hook which is similar to lifecycle components basically works after loading the page
