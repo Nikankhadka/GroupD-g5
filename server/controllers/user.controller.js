@@ -57,3 +57,20 @@ if(check=="nocat"){
 }
  
 }
+
+
+
+//handler for update category
+exports.upcategory=async(req, res)=>{
+  //using route paramets toa accept a single cat
+ const mbody=req.body
+
+const check= await mod.updateCategory( req.params.name,mbody.name1)
+if(check=="nocat"){
+    res.send("category not available")
+}else{
+  res.status(200).send("updated");
+ 
+}
+}
+ 

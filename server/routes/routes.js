@@ -18,7 +18,7 @@ module.exports = async(app) => {
   //admin category settings
   router.post("/category/:name",await controllers.newcategory);
   router.delete("/category/:name",await controllers.delcategory);
-
+  router.patch("/category/:name",await controllers.upcategory);
 
    app.use("/api/v1", router);
 };

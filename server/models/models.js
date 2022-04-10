@@ -110,8 +110,44 @@ exports.cropsinfo=async(category)=>{
         }else{
           return "nocat"
           
-        }}
+}}
   
+
+  //  //for updating the category
+  exports.updateCategory=async(category,ncategory)=>{
+    connection=await conn()
+    
+    var exist=0;
+
+
+    //checking if category already exist
+    const [rows, fields] = await connection.query("SELECT * FROM `crops_category` ")
+    rows.forEach(e=>{
+      if(e.category==category){
+        exist=1;
+        console.log("match bhayo")
+      
+      }
+      else{
+        
+        console.log("match bhayena")
+      }
+    })
+
+    //if category exist then ececute the query below
+    if(exist==1){
+      //this will insertt new catgeroy
+       await connection.query("update `crops_category` set category='"+ncategory+"' where category='"+category+"'")
+      await connection.query("ALTER TABLE "+category+" RENAME To "+ncategory+"")
+      
+
+      console.log("crop category updated")
+      
+    }else{
+      return "nocat"
+      
+}}
+
 
 
 
