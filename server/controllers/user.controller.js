@@ -1,5 +1,19 @@
 const mod =require("../models/models")
 
+//Login
+exports.logins=async(req, res)=>{
+  console.log("anc")  //   
+  let user=req.body.username
+  let pass=req.body.password
+ console.log(user,pass)
+  if(await mod.login(user,pass)){
+      res.send({status:true})
+  }
+  else{
+      res.send({status:false})
+  }
+}
+
 //get category info
 exports.category=async(req, res)=>{
    
