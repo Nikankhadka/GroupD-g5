@@ -25,3 +25,19 @@ exports.cropinfo=async(req, res)=>{
 
 
 
+
+//now for admin category settings
+
+//request handler for adding new crop category
+exports.newcategory=async(req, res)=>{
+  //using route paramets toa accept a single cat
+  const mbody=req.params.name;
+const check= await mod.newcategory(mbody)
+if(check=="match"){
+    res.send("category exist")
+}else{
+  res.status(200).send("posted");
+ 
+}
+ 
+}

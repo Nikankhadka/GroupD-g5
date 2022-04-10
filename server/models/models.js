@@ -41,6 +41,39 @@ exports.cropsinfo=async(category)=>{
   
     
 
+    //for admin category settings
+
+    //model for adding new category by admin
+    exports.newcategory=async(category)=>{
+      connection=await conn()
+      
+      var exist=0;
+
+
+      //checking if category already exist
+      const [rows, fields] = await connection.query("SELECT * FROM `crops_category` ")
+      rows.forEach(e=>{
+        if(e.category==category){
+          exist=1;
+        }
+        else{
+          console.log("new cat matched so not post")
+        }
+      })
+
+      if(exist==1){
+        return "match"
+      }else{
+        //this will insertt new catgeroy
+        await connection.query("INSERT INTO `crops_category` VALUES('"+category+"')")
+        await connection.query("CREATE TABLE "+category+"("+"farmer_id VARCHAR(100),"+"crop_id VARCHAR(100),"+"crop_name VARCHAR(100),"+"farmers_rate INTEGER(10),"+"market_rate INTEGER(10),"+"crop_details VARCHAR(500),"+"image VARCHAR(1000))")
+        
+
+        console.log("new crop catreogry added also created its test table")
+        
+ }}
+
+
 
 
 

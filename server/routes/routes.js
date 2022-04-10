@@ -14,7 +14,9 @@ module.exports = async(app) => {
   router.get("/cropinfo/:cropcat",await controllers.cropinfo);
  
 
-
+  
+  //admin category settings
+  router.post("/category/:name",await controllers.newcategory);
 
 
 
