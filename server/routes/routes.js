@@ -20,5 +20,14 @@ module.exports = async(app) => {
   router.delete("/category/:name",await controllers.delcategory);
   router.patch("/category/:name",await controllers.upcategory);
 
+
+ //admin crops meeting 
+ router.post("/crops/:category",await controllers.postcrop);
+
+
+
+
+
+
    app.use("/api/v1", router);
 };

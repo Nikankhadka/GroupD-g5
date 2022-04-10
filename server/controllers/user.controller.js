@@ -74,3 +74,21 @@ if(check=="nocat"){
 }
 }
  
+
+
+
+
+//for crops posting updating and deleting 
+exports.postcrop=async(req, res)=>{
+  //using route paramets toa accept a single
+ const mbody=req.body.update
+  console.log(mbody)
+  console.log(req.params.category)
+const check= await mod.postcrop( req.params.category,mbody)
+if(check=="alposted"){
+    res.send("already exist")
+}else{
+  res.status(200).send("posted");
+ 
+}
+}

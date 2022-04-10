@@ -152,4 +152,57 @@ exports.cropsinfo=async(category)=>{
 
 
 
+//admin crops posting settings 
+
+  //crops posting model
+  exports.postcrop=async(category,ci)=>{
+    connection=await conn()
+    
+    var exist=0;
+
+  //check if that specific user has already posted the same crops detail already
+  const [rows, fields] = await connection.query("SELECT * FROM "+category+" ")
+  rows.forEach(e=>{
+    if(e.farmer_id==ci.farmer_id && e.crop_name==ci.crop_name){
+      exist=1
+      console.log("farmer reposted the same information")
+    }
+    else{
+      console.log("crop posting not repeated")
+    }
+  })
+
+  if(exist){
+    console.log("same crop info from same farmer")
+    return "alposted"
+  }else{
+    //generate unique id for crop
+    let pid=Date.now();
+
+    //insert crop details into crop specific category table
+     await connection.query("insert into "+category+" VALUES ('"+ci.farmer_id+"','"+pid+"','"+ci.crop_name+"','"+ci.farmers_rate+"','"+ci.market_rate+"','"+ci.crop_details+"','"+ci.image+"') ")
+  
+    //now take the farmer id and check if that farmer exist in info if then dont insert just update if not inser new data 
+
+  const [rows2, fields] = await connection.query("SELECT * FROM `farmer` WHERE farmer_id='"+ci.farmer_id+"' ")
+  if(typeof rows2[0]=='object'){
+    console.log("farmer details exist")
+    let post=rows2[0].posting+1;
+     await connection.query("update `farmer` set posting='"+post+"' where farmer_id='"+ci.farmer_id+"'")
+    console.log("updated farmer posting ")
+  }
+  else{
+    let pp=1;
+    await connection.query("insert into `farmer` VALUES ('"+ci.farmer_id+"','"+ci.name+"','"+pp+"','"+ci.province+"','"+ci.ward+"','"+ci.family+"') ")
+    console.log("crops finally posted with new information updated positng")
+    return "posted"
+  }
+  
+  
+  }
+
+  
+      
+}
+
 
