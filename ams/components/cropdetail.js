@@ -63,7 +63,7 @@ export default function Cropd(){
         </div>
         {/* divider tos seperate  */}
         <div className="divider"></div>
-        <p className="ptag">{cat}</p>
+        <h2 className="hfruit">{cat}</h2>
         <div className="cropsview">
        
 

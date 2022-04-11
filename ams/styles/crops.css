@@ -41,6 +41,9 @@
     font-weight: bold;
     font-size: 30px;
 }
+.hfruit {
+    text-align: center;
+}
 
 body {
     background: #f3f3f3;
@@ -50,7 +53,7 @@ body {
 }
 .wrapper {
     position: absolute;
-    top: 75%;
+    top: 85%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 1150px;
