@@ -2,12 +2,31 @@ var mixarray=[];
 const conn = require("./db");
 
 
+
+
+//for login category
+exports.login=async(username,password)=>{
+  connection =await conn()
+
+  const [rows, fields] = await connection.query("SELECT * FROM `users` where user_name=? AND password=?",[username,password])
+  console.log(rows)
+  if ( rows[0]){
+    return(true)
+  }
+}
+
+
+
+
+
 //get all category infor from databse
 exports.catinfo=async()=>{
   //extablish connection with the database
   connection=await conn()
 
 
+
+  
 
   //creating an empty array
   var category=[];
