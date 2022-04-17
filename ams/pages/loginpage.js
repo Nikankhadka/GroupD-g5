@@ -12,7 +12,7 @@ import axios from 'axios';
 
 
 export default function Login(){
-   
+    
     //local object to validate form data
     const user={
         name:"admin",
@@ -30,11 +30,12 @@ export default function Login(){
         
         console.log(data)
        
-        axios.post(`http://localhost:2900/api/v1/login`,{username:data.username,password:data.password})
+        axios.post(`http://localhost:2900/api/v1/login`,{username:data.username,password:data.password},{ withCredentials: true })
         .then(res =>  {
-            if(res.data.status){
+            
+            if(res.data){
                 sete1(false)
-                console.log("status bitra")
+                console.log(res.data)
                 window.location.href = './admin'
             }
             else {

@@ -2,15 +2,57 @@
 import Adminnav from "../../components/adminnav"
 import React, { useMemo, useState, useEffect } from "react";
 import axios from "axios"
+import * as api from "../../Api/apicall"
+
+
+export default function Authorize(){
 
 
 
 
-export default function Admin(){
+const [check,setcheck]=useState(false)
+//function checks for result fromt the authorization calls then only reners the page
+    function verify(result){
+        
+        if(result==true){
+            console.log("chalyo hai ya")
+           setcheck(true)
+        }else{
+            alert("please login to come")
+             window.location.href="../loginpage"
+        }
+    }
+
+
+
+    //call api function
+    useEffect(()=>{
+       
+        api.Authorize(verify)
+    },[]);
+
+    //once everything is verified then only the page will be rendered
+    return(
+        <div>
+            {check && <Comp />}
+        </div>
+
+
+    )
+
+
+   
+}
+
+ function Comp(){
     const [category, setcategory] = useState([]);
     const [farmer, setfarmer] = useState([]);
     var pcount=0;
     var fcount=0;
+
+   
+
+
     useEffect(() => {
          axios.get(`http://localhost:2900/api/v1/farmer`)
         .then(result => {

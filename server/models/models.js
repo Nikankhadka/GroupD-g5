@@ -1,4 +1,4 @@
-var mixarray=[];
+
 const conn = require("./db");
 
 
@@ -9,6 +9,17 @@ exports.login=async(username,password)=>{
   connection =await conn()
 
   const [rows, fields] = await connection.query("SELECT * FROM `users` where user_name=? AND password=?",[username,password])
+  console.log(rows)
+  if ( rows[0]){
+    return(true)
+  }
+}
+
+
+exports.veruser=async(username)=>{
+  connection =await conn()
+
+  const [rows, fields] = await connection.query("SELECT * FROM `users` where user_name='"+username+"'")
   console.log(rows)
   if ( rows[0]){
     return(true)

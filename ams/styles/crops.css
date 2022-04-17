@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
+
+.cropsview{
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+    
+}
 .category{
 
     display: flex;
@@ -51,12 +59,13 @@ body {
 .b_letters{
     font-weight: bold;
 }
+.hfruit{
+        margin-bottom:1rem;
+}
 .wrapper {
-    position: absolute;
-    top: 85%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 1150px;
+ 
+    /* transform: translate(-50%, -50%); */
+    width: 880px;
     display: flex;
     box-shadow: 0 1px 20px 0 rgba(69, 90,100,0.08);
     

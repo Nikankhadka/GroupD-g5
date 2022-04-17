@@ -1,9 +1,80 @@
 import Adminnav from "../../components/adminnav";
 import { useForm } from "react-hook-form";
-import {useState,useEffect} from 'react';
-import Link from "next/link";
-import axios from "axios"
+
+
+
 import Confirm from "../../components/confirmation";
+
+import React, { useMemo, useState, useEffect } from "react";
+import axios from "axios"
+import * as api from "../../Api/apicall"
+
+
+export default function Authorize(){
+
+
+
+
+const [check,setcheck]=useState(false)
+//function checks for result fromt the authorization calls then only reners the page
+    function verify(result){
+        
+        if(result==true){
+            console.log("chalyo hai ya")
+           setcheck(true)
+        }else{
+            alert("please login to come")
+             window.location.href="../loginpage"
+        }
+    }
+
+
+
+    //call api function
+    useEffect(()=>{
+       
+        api.Authorize(verify)
+    },[]);
+
+    //once everything is verified then only the page will be rendered
+    return(
+        <div>
+            {check && <Category />}
+        </div>
+
+
+    )
+
+
+   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -212,12 +283,11 @@ function Updatecat(){
 }
 
 
-export default function Category(){
+ function Category(){
 
     //state for conditional form rendering 
-    const [post, setpost] = useState(true);
-    const [update, setupdate] = useState(false);
-    const [del, setdel] = useState(false);
+    const [page, setpage] = useState(<Post />);
+
 
 
 
@@ -229,25 +299,18 @@ export default function Category(){
             <div className="cat">
             <div className="btn-container">
                         <button  className="login-form-btn"  onClick={()=>{
-                            setdel(true)
-                            setpost(false)
-                            setupdate(false)
+                           setpage(<Deletecat />)
                         }}>Delete</button> 
                         <button  className="login-form-btn"  onClick={()=>{
-                            setdel(false)
-                            setpost(true)
-                            setupdate(false)
+                           setpage(<Post />)
                         }}>POST</button> 
                     <button  className="login-form-btn"  onClick={()=>{
-                            setdel(false)
-                            setpost(false)
-                            setupdate(true)
+                           setpage(<Updatecat />)
                         }}>UPDATE</button> 
                     </div>
             </div>
-            {post? <Post />:console.log("post not rendered")}
-            {update? <Updatecat />:console.log("update not rendered")}
-            {del? <Deletecat />:console.log("delete not rendered")}
+            {/* state based rendering where button prersses while change the component calle in state and rerender the page */}
+            {page}
             
            
            

@@ -1,4 +1,8 @@
 const mod =require("../models/models")
+const gt=require("../configs/utils")
+const jwt=require("jsonwebtoken")
+
+
 
 //Login
 exports.logins=async(req, res)=>{
@@ -7,12 +11,109 @@ exports.logins=async(req, res)=>{
   let pass=req.body.password
  console.log(user,pass)
   if(await mod.login(user,pass)){
-      res.send({status:true})
+      //generating the token here since user is already authenticated
+        const token=gt.GenerateToken(user,req,res);
+        console.log("token bhayo"+token)
+        //store token in http only cookie
+        res.status(202).cookie("token",token,{
+         maxAge: 90000000,
+          httpOnly:true,
+         
+        }).send("cokie bhaup")
+      
+        
+      
+      
   }
   else{
       res.send({status:false})
   }
 }
+
+
+//for authentication in each acess of page where the validation is required
+
+exports.auth=async(req,res)=>{
+   if(mod.veruser(req.user.name)){
+     res.send(true)
+   }else{
+     response.sendStatus(404)
+   }
+}
+
+
+
+//delete cokie in logout
+exports.deletecokie=(req,res)=>{
+  
+  res.status(202).clearCookie("token").send("cleared")
+  console.log("clear bhayo")
+
+
+} 
+
+
+
+
+//authenticate token in each login and other pages make sure it is the correct user that ia acessing the pages 
+exports.authtoken=(req,res,next)=>{
+  var token;
+      if(req.headers.cookie){
+                  //will get all the cokies in array and seperate with ;
+              const rawCookies = req.headers.cookie.split('; ');
+              //will seperate the cokie and value with =
+              const parsedcokie=rawCookies[0].split("=")
+              //finally get token in index 1
+              token=parsedcokie[1];
+
+
+
+              if(token==null){
+                return res.sendStatus(401)
+              }else{
+                console.log("token"+token)
+                jwt.verify(token,process.env.ACCESS_TOKEN_SECRET,(err,user)=>{
+                  if(err){
+                    console.log("ya sama chalyo")
+                    return res.sendStatus(403)
+                  }
+                  else{
+                    req.user=user
+                    console.log(req.user)
+                    next()
+                  }
+                })
+              }
+      }else{
+        res.send("nocokie")
+       
+      }
+ 
+  
+  
+  
+  
+  
+ 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //get category info
 exports.category=async(req, res)=>{

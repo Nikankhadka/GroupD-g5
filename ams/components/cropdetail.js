@@ -1,6 +1,7 @@
 import axios from "axios"
 import React, { useState, useEffect } from 'react';
-
+//importing api functions from api calls as api
+import *  as api from "../Api/apicall";
 
 
 export default function Cropd(){
@@ -11,32 +12,24 @@ export default function Cropd(){
     //use react use effect hook which is similar to lifecycle components basically works after loading the page
 
     useEffect(async() => {
-       await  axios.get(`http://localhost:2900/api/v1/category`)
-       .then(result => {
-            setcategory(result.data)  
-            console.log(category)
-         
-       })
+           api.Category(set);
       },
       //use this bracket to only run once if some change is detected 
       []
       );
     
-
-    //initially load the crop details with default value passed on page load 
-    //   useEffect(async()=>{
-        
-        
-    //     await  axios.get(`http://localhost:2900/api/v1/cropinfo/${cat}`)
-    //      .then(result => {
-    //         console.log(result.data)
-    //         setcrop(result.data);
-            
-            
-    //      })},[]);
+      //function passed as callback to set category in state
+      function set(data){
+        setcategory(data) 
+        console.log(data) ;
+      }
 
 
-
+      //function to update state with crop info
+      function sCet(data){
+          setcrop(data);
+          console.log(data)
+      }
 
 
     return(
@@ -49,14 +42,9 @@ export default function Cropd(){
             category.map(e=>(
                 <button onClick={async()=>{
                     setcat(e)
-                    console.log(e)
-                    await  axios.get(`http://localhost:2900/api/v1/cropinfo/${e}`)
-                     .then(result => {
-                        console.log(result.data)
-                        setcrop(result.data);
-                        
-                        
-                     })
+                    //function to get crop info pass scet callback and e cropname
+                    api.Crops(sCet,e);      
+                    
                 }}> {e} </button>
             ))
         }

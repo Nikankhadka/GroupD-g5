@@ -29,7 +29,7 @@ export default function Confirm(props){
             <button
               onClick={() => {
                 props.setOpenModal(false);
-                console.log("chalyo")
+                
               }}
               id="cancelBtn"
             >
@@ -37,6 +37,7 @@ export default function Confirm(props){
             </button>
             <button  onClick={()=>{
                props.action1()
+               
             }}>Continue</button>
           </div>
         </div>

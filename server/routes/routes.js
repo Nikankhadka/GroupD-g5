@@ -6,8 +6,10 @@ module.exports = async(app) => {
 
 
   
-   //login route
+   //login route and logout
   router.post("/login",await controllers.logins);
+  router.get("/login",controllers.authtoken,await controllers.auth);
+  router.delete("/login",await controllers.deletecokie)
 
   //category info and crops of specific cat
   router.get("/category",await controllers.category);

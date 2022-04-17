@@ -1,19 +1,73 @@
 import Adminnav from "../../components/adminnav";
 import { useForm } from "react-hook-form";
-import {useState} from 'react';
-import Link from "next/link";
+
+
 import Postcrop from "../../components/postcrop";
 import Deletecrops from "../../components/deletecrops";
 import Updatecrop from "../../components/updatecrop";
 
 
 
-export default function Category(){
+
+
+import React, { useMemo, useState, useEffect } from "react";
+import axios from "axios"
+import * as api from "../../Api/apicall"
+
+
+export default function Authorize(){
+
+
+
+
+const [check,setcheck]=useState(false)
+//function checks for result fromt the authorization calls then only reners the page
+    function verify(result){
+        
+        if(result==true){
+            console.log("chalyo hai ya")
+           setcheck(true)
+        }else{
+            alert("please login to come")
+             window.location.href="../loginpage"
+        }
+    }
+
+
+
+    //call api function
+    useEffect(()=>{
+       
+        api.Authorize(verify)
+    },[]);
+
+    //once everything is verified then only the page will be rendered
+    return(
+        <div>
+            {check && <Category />}
+        </div>
+
+
+    )
+
+
+   
+}
+
+
+
+
+
+
+
+
+
+//only render after checking the authorization from token stored in cookies
+function Category(){
 
     //state for conditional form rendering 
-    const [post, setpost] = useState(true);
-    const [update, setupdate] = useState(false);
-    const [del, setdel] = useState(false);
+    const [page, setpage] = useState(<Postcrop />);
+
 
 
 
@@ -24,24 +78,20 @@ export default function Category(){
 
             <div className="btn-container">
                         <button  className="login-form-btn"  onClick={()=>{
-                            setdel(true)
-                            setpost(false)
-                            setupdate(false)
+                           setpage(<Deletecrops />)
                         }}>Delete</button> 
                         <button  className="login-form-btn"  onClick={()=>{
-                            setdel(false)
-                            setpost(true)
-                            setupdate(false)
+                            setpage(<Postcrop />)
                         }}>POST</button> 
                     <button  className="login-form-btn"  onClick={()=>{
-                            setdel(false)
-                            setpost(false)
-                            setupdate(true)
+                          setpage(<Updatecrop />)
                         }}>UPDATE</button> 
                     </div>
-            {post? <Postcrop />:console.log("post not rendered")}
-            {update? <Updatecrop />:console.log("update not rendered")}
-            {del? <Deletecrops />:console.log("delete not rendered")}
+                    
+                    {/* state based rendering just changes the component on button click  */}
+                    {page}
+
+           
             
 
 
