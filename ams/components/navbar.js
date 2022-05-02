@@ -25,7 +25,7 @@ export default function Navbar(){
     },
     {
       name: "Join now",
-      path: "/services",
+      path: "/Signup",
     },
    
   ];

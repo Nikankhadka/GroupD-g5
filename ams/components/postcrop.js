@@ -5,7 +5,7 @@ import {ref,getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import {storage}  from "../pages/base"
 import Confirm from "./confirmation";
 
-
+import * as api from "../Api/apicall"
 
 
 export default function Postcrop(){
@@ -19,19 +19,20 @@ export default function Postcrop(){
     const {register,handleSubmit,formState: { errors }}=useForm();
     const[category,setcategory]=useState([]);
 
-    useEffect(async() => {
-        await  axios.get(`http://localhost:2900/api/v1/category`)
-        .then(result => {
-             setcategory(result.data)  
-             console.log(category)
-          
-        })
-       },
+    //when trying to call remote api function in use effect, call thrugh async function
+    useEffect(  async()=>{
+        api.Category(set)}
+        ,
        //use this bracket to only run once if some change is detected 
        []
        );
 
-
+       //setter function to chnage state by passing as a call back 
+    function set(data){
+        
+        setcategory(data);
+       
+    }
 
        //basic function which fetches the form data and uploads the then passes the form data along with image url to funtion which is uploaded to database
       function onclick(data2){
@@ -40,6 +41,7 @@ export default function Postcrop(){
         }
       
       
+        //pass callback and state 
        function Action(){
             
         const storageRef = ref(storage, `files/${data1.image[0].name}`);
@@ -77,30 +79,28 @@ export default function Postcrop(){
         farmer_id: data.farmer_id,
         farmers_rate:data.farmers_rate,
         image:url,
+        imagename:data.image[0].name,
         market_rate:data.market_rate,
         name: data.name,
         province:data.province,
         ward:data.ward,
         }
 
-    
+        console.log(update);
+        
 
-        axios.post(`http://localhost:2900/api/v1/crops/${update.category}`,{update})
-            .then(res =>  {
-                if(res.data=="posted"){
-                    alert("crop "+data.crop_name+" succesfully posted")
-                    setModalOpen(false)
-                }else{
-                    alert("crop not posted already exist")
-                }
+        //call post crop api function from api call
+       api.Postcrop(update.category,update,modelsetter)
     
-    
-        })
-
 
        }
 
 
+       //setter function to set model state to false
+       function modelsetter(){
+           console.log("dettetetete")
+           setModalOpen(false)
+       }
 
 
     return(  

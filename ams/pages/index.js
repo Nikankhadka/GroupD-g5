@@ -3,6 +3,69 @@ import Link from "Next/link"
 import Footer from "../components/footer"
 import axios from "axios"
 
+import React, { useMemo, useState, useEffect } from "react";
+import * as api from "../Api/apicall"
+
+
+
+
+
+export default function Authorize(){
+
+
+
+
+  const [check,setcheck]=useState(false)
+  //function checks for result fromt the authorization calls then only reners the page
+      function verify(result){
+          
+          if(result==true){
+              window.location.href="./admin"
+             
+          }else{
+            setcheck(true)
+          }
+      }
+  
+  
+  
+      //call api function
+      useEffect(()=>{
+         
+          api.Authorize(verify)
+      },[]);
+  
+      //once everything is verified then only the page will be rendered
+      return(
+          <div>
+              {check && <Home />}
+          </div>
+  
+  
+      )
+  
+  
+     
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //cant export more than one component in next since every new page acts as a route 
 
 // box component for each boxes in the home or index page
@@ -26,7 +89,7 @@ const tagg=<img src={props.imm} alt="" />
 }
 
 
-export default function home(){
+ function Home(){
  
 
 

@@ -107,6 +107,8 @@ export default function Updatecrop(){
 
     return(
         <div className="update">
+
+            
            <div className="crops">
           
         <h2 className="title"> Crops Update</h2>
@@ -135,7 +137,8 @@ export default function Updatecrop(){
         <input type="text" className="input"  placeholder="Crop name" {...register('crop_name', { required:true })}/>
         </div>
          {errors.crop_name && <p className="p1">enter valid crop name</p>}
-
+        
+        <h4 >Enter new details to update</h4>
          <div className="wrap-input">
         <input type="number" className="input"  placeholder="rate" {...register('farmers_rate', { required:true})}/>
         </div>

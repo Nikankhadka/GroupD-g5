@@ -13,12 +13,6 @@ import axios from 'axios';
 
 export default function Login(){
     
-    //local object to validate form data
-    const user={
-        name:"admin",
-        password:"admin",
-        catg:"admin"
-    }
 
 
     //usoign react hook form to get form object and handle erorr
@@ -30,39 +24,30 @@ export default function Login(){
         
         console.log(data)
        
-        axios.post(`http://localhost:2900/api/v1/login`,{username:data.username,password:data.password},{ withCredentials: true })
+        axios.post(`http://localhost:2900/api/v1/login`,{userId:data.userId,password:data.password},{ withCredentials: true })
         .then(res =>  {
             
-            if(res.data){
-                sete1(false)
-                console.log(res.data)
-                window.location.href = './admin'
+            //will get response if false then show eroror
+            if(res.data.status==false){
+                sete1(true)
             }
             else {
-                sete1(true)
+                //check type of login then open the dashboard
+                if(res.data=="admin"){
+                    sete1(false)
+                    window.location.href = './admin'
+               }
+               else if(res.data=="user"){
+                sete1(false)
+                window.location.href="./user"
+               
+               }
+                
             }
        
           
         })
         
-    
-        // if(data.username==user.name&&data.password==user.password&&data.pcat==user.catg){
-        //     console.log(username)
-            
-            
-        //     sete1(false)
-        // }else{
-        //     //set is method u shen u update the value or change u pass the change as parameter 
-        //     if(!e1){
-        //         sete1(!e1);
-        //     }
-        //     else{
-        //         sete1(true)
-        //     }
-           
-        // }
-    
-
     }
 
 
@@ -86,7 +71,7 @@ export default function Login(){
                     <h2 class="login-form-title">Login</h2>
 
                     <div class="wrap-input">
-                    <input type="text" class="input"  placeholder="username" {...register('username', { required:true})}/>
+                    <input type="text" class="input"  placeholder="userId" {...register('userId', { required:true})}/>
                      </div>
                      {errors.username && <p className="p1">enter valid username</p>}
                     <div class="wrap-input">
@@ -101,7 +86,7 @@ export default function Login(){
                     {e1? <p className="p1">username/password not matched</p>:console.log({e1})}
                   
                   <div class="text-center p-t-2">
-                  <Link href="/">
+                  <Link href="/Signup">
                     <a>Create Your Account</a>
                  </Link>
                      

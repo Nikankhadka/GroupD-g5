@@ -97,6 +97,7 @@ export default function Farmer(){
         </div>
          {errors.name && <p className="p1">enter new name</p>}
 
+         <h4 >Enter new details to update</h4>
          <div className="wrap-input">
         <input type="text" className="input"  placeholder="new province" {...register('province', { required:true })}/>
         </div>

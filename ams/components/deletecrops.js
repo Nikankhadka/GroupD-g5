@@ -3,18 +3,18 @@ import {useState,useEffect} from 'react';
 import axios from "axios"
 import Confirm from "./confirmation";
 
-
+import * as api from "../Api/apicall"
 
 export default function Deletecrops(){
     const [category, setcategory] = useState([]);
     const [crop, setcrop] = useState([]);  
     const {register,handleSubmit,formState: { errors }}=useForm();
-    
+   
     //main part
     const [selected,setselected]=useState("")
    const [modalOpen, setModalOpen] = useState(false);
     const[cropid,setcropid]=useState("")
-
+    const [imagename,setimagename]=useState("")
 
     //use to load initial details of crop category
     useEffect(async() => {
@@ -44,29 +44,20 @@ export default function Deletecrops(){
 
        }
 
-//then after selecting the crop to delete and confirming the action below code is executed to delete the crop information 
+   
+    //callback to pass into modal componnet so that it executes only after the continue button is clicked
        function Action(){
-           console.log(selected)
-           console.log(cropid)
-           const del={
-            crop_id:cropid
-           }
-           console.log(del)
-            axios.delete(`http://localhost:2900/api/v1/crops/${selected}/${cropid}`).then(
-                result =>{
-                    if(result.data=="deleted"){
-                        alert("Crop of "+cropid+" succesfully deleted")
-                        setModalOpen(false)
-                    }else{
-                        alert("crop failed to delete")
-                    }
-                }
-            )
-
+        api.Action(imagename,selected,cropid,modalsetter)
        }
+
+       function modalsetter(){
+           setModalOpen(false)
+       }
+
+
+
+
        
-
-
     return(
         <div>
             <div className="main_container">
@@ -89,14 +80,22 @@ export default function Deletecrops(){
 
                 <section className="display_info"></section> 
             </div>
+            
+
+            {/* modal to continue the to perform action hai */}
             {modalOpen && <Confirm setOpenModal={setModalOpen} action1={Action} />}
                 <div className="cropsview">
+
+
+
                 {crop.map(c=>(<button  onClick={()=>{
                     setModalOpen(true)
                     setcropid(c.crop_id)
-
+                    //setting image name to delete in firebase
+                    setimagename(c.imagename);
+                    
                 }}>
-                    <div class="crop">
+                <div class="crop">
 
                 <img src={c.image} className="cropimg"/>
                 <p className="ptag">{c.crop_name}</p>

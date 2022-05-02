@@ -6,20 +6,34 @@ const jwt=require("jsonwebtoken")
 
 //Login
 exports.logins=async(req, res)=>{
-  console.log("anc")  //   
-  let user=req.body.username
+    
+  let user=req.body.userId
   let pass=req.body.password
- console.log(user,pass)
-  if(await mod.login(user,pass)){
+  const usertype=await mod.login(user,pass)
+
+
+  if(usertype=="admin" || usertype=="user"){
       //generating the token here since user is already authenticated
         const token=gt.GenerateToken(user,req,res);
         console.log("token bhayo"+token)
+
+
         //store token in http only cookie
-        res.status(202).cookie("token",token,{
-         maxAge: 90000000,
-          httpOnly:true,
+        if(usertype=="admin"){
+          res.status(202).cookie("token",token,{
+            maxAge: 90000000,
+             httpOnly:true,
+            
+           }).send("admin")
          
-        }).send("cokie bhaup")
+        }else{
+          res.status(202).cookie("token",token,{
+            maxAge: 90000000,
+             httpOnly:true,
+            
+           }).send("user")
+         
+        }
       
         
       
@@ -31,15 +45,6 @@ exports.logins=async(req, res)=>{
 }
 
 
-//for authentication in each acess of page where the validation is required
-
-exports.auth=async(req,res)=>{
-   if(mod.veruser(req.user.name)){
-     res.send(true)
-   }else{
-     response.sendStatus(404)
-   }
-}
 
 
 
@@ -61,10 +66,13 @@ exports.authtoken=(req,res,next)=>{
       if(req.headers.cookie){
                   //will get all the cokies in array and seperate with ;
               const rawCookies = req.headers.cookie.split('; ');
+              console.log("rawcokies"+rawCookies)
               //will seperate the cokie and value with =
               const parsedcokie=rawCookies[0].split("=")
+              console.log("parsed cookies"+parsedcokie)
               //finally get token in index 1
               token=parsedcokie[1];
+              console.log("token"+token)
 
 
 
@@ -99,11 +107,15 @@ exports.authtoken=(req,res,next)=>{
 
 
 
+//for authentication in each acess of page where the validation is required
 
-
-
-
-
+exports.auth=async(req,res)=>{
+  if(mod.veruser(req.user.name)){
+    res.send(true)
+  }else{
+    response.sendStatus(404)
+  }
+}
 
 
 

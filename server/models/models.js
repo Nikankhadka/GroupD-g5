@@ -8,14 +8,21 @@ const conn = require("./db");
 exports.login=async(username,password)=>{
   connection =await conn()
 
-  const [rows, fields] = await connection.query("SELECT * FROM `users` where user_name=? AND password=?",[username,password])
-  console.log(rows)
-  if ( rows[0]){
-    return(true)
+  const [rows, fields] = await connection.query("SELECT * FROM `users` where user_id='"+username+"'AND password='"+password+"'")
+  
+  if(rows[0]){
+          if ( rows[0].user_id=="admin"){
+            return("admin")
+        }else{
+          return("user")
+        }
+  }else{
+    return(false)
   }
 }
 
 
+//will get user and veridy whether the user info is in databse or not
 exports.veruser=async(username)=>{
   connection =await conn()
 
@@ -62,7 +69,7 @@ exports.cropsinfo=async(category)=>{
   var nikarray
   connection=await conn()
   //crops of specific category
-  const [rows, fields] = await connection.query("SELECT " + category + ".farmer_id," + category + ".crop_id," + category + ".crop_name," + category + ".farmers_rate," + category + ".market_rate," + category + ".crop_details," + category + ".image,farmer.name,farmer.posting,farmer.province,farmer.ward,farmer.family  FROM " + category + " inner join farmer on " + category + ".farmer_id=farmer.farmer_id  ")
+  const [rows, fields] = await connection.query("SELECT " + category + ".farmer_id," + category + ".crop_id," + category + ".crop_name," + category + ".farmers_rate," + category + ".market_rate," + category + ".crop_details," + category + ".image,imagename,farmer.name,farmer.posting,farmer.province,farmer.ward,farmer.family  FROM " + category + " inner join farmer on " + category + ".farmer_id=farmer.farmer_id  ")
   console.log("yo chai after hai")
   console.log(rows)
   return rows;
@@ -96,7 +103,7 @@ exports.cropsinfo=async(category)=>{
       }else{
         //this will insertt new catgeroy
         await connection.query("INSERT INTO `crops_category` VALUES('"+category+"')")
-        await connection.query("CREATE TABLE "+category+"("+"farmer_id VARCHAR(100),"+"crop_id VARCHAR(100),"+"crop_name VARCHAR(100),"+"farmers_rate INTEGER(10),"+"market_rate INTEGER(10),"+"crop_details VARCHAR(500),"+"image VARCHAR(1000))")
+        await connection.query("CREATE TABLE "+category+"("+"farmer_id VARCHAR(100),"+"crop_id VARCHAR(100),"+"crop_name VARCHAR(100),"+"farmers_rate INTEGER(10),"+"market_rate INTEGER(10),"+"crop_details VARCHAR(500),"+"image VARCHAR(1000),"+"imagename VARCHAR(100))")
         
 
         console.log("new crop catreogry added also created its test table")
@@ -210,7 +217,7 @@ exports.cropsinfo=async(category)=>{
     let pid=Date.now();
 
     //insert crop details into crop specific category table
-     await connection.query("insert into "+category+" VALUES ('"+ci.farmer_id+"','"+pid+"','"+ci.crop_name+"','"+ci.farmers_rate+"','"+ci.market_rate+"','"+ci.crop_details+"','"+ci.image+"') ")
+     await connection.query("insert into "+category+" VALUES ('"+ci.farmer_id+"','"+pid+"','"+ci.crop_name+"','"+ci.farmers_rate+"','"+ci.market_rate+"','"+ci.crop_details+"','"+ci.image+"','"+ci.imagename+"') ")
   
     //now take the farmer id and check if that farmer exist in info if then dont insert just update if not inser new data 
 
