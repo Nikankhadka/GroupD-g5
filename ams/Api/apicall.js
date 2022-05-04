@@ -22,6 +22,7 @@ export async function Crops(set,e){
                      .then(result => {
                         set(result.data);
                         
+                        
                      })
 }
 
@@ -50,7 +51,7 @@ export async function Postcrop(category,update,modelsetter){
 
 
  // Action to delete crop 
- export function Action(imagename,selected,cropid,modalsetter){
+ export function Deletecrop(imagename,selected,cropid,modalsetter){
         console.log("action bitra"+imagename)
     //delete image from ffirebase cloud storage
 

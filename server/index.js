@@ -20,7 +20,7 @@ app.use(cors({origin:"http://localhost:3000",
 
 //importing the route module
 require("./routes/routes.js")(app);
-
+require("./routes/userroutes.js")(app);
 
 
 //-------------------- Start Server ----------------------//

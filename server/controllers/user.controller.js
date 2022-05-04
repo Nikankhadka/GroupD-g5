@@ -4,6 +4,38 @@ const jwt=require("jsonwebtoken")
 
 
 
+
+
+//signup
+exports.signup=async(req,res)=>{
+  const main=req.body.formdata;
+  console.log(main)
+  const modle=await mod.signup(main);
+ 
+  if(modle=="posted"){
+    res.send(true)
+  }else{
+    res.send(false)
+  }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //Login
 exports.logins=async(req, res)=>{
     

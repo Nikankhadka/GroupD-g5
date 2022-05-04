@@ -5,7 +5,12 @@ module.exports = async(app) => {
   var router = Router();
 
 
-  
+
+  //signup
+  router.post("/signup",controllers.signup);
+
+
+
    //login route and logout
   router.post("/login",await controllers.logins);
   router.get("/login",controllers.authtoken,await controllers.auth);

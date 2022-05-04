@@ -4,6 +4,39 @@ const conn = require("./db");
 
 
 
+
+//signup model
+exports.signup=async(data)=>{
+  console.log(data)
+  connection=await conn();
+const posting=0;
+  //check whether the user exist or not
+  const[rows,fields]=await connection.query("SELECT * from `users` Where user_id='"+data.userId+"'");
+  if(rows[0]){
+    return "userexist"
+  }else{
+    //now insert user data into usertable and farmer table
+    await connection.query("INSERT INTO `users` VALUES('"+data.userId+"','"+data.user_name+"','"+data.password+"')")
+    console.log("data inserted into users table hai ")
+
+    await connection.query("INSERT INTO `farmer` VALUES('"+data.userId+"','"+data.user_name+"','"+posting+"','"+data.province+"','"+data.ward+"','"+data.family+"')")
+    console.log("data inserted into farmer table")
+    return ("posted")
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 //for login category
 exports.login=async(username,password)=>{
   connection =await conn()
@@ -263,8 +296,7 @@ exports.deletecrop=async(category,id)=>{
   const[rows1,feilds1]=await connection.query("SELECT * FROM `farmer` WHERE farmer_id='"+farmer_id+"'")
   var posting=rows1[0].posting-1
   if(posting==0){
-    await connection.query("delete from `farmer` where farmer_id='"+farmer_id+"'")
-    console.log("deleted the farmer information 0 posting")
+    console.log("farmer posting is 0 make sure to input atleast one crop")
   }else{
     await connection.query("update `farmer` set posting='"+posting+"' where farmer_id='"+farmer_id+"'")
     console.log("farmer posting updated")
@@ -289,11 +321,13 @@ exports.updatecrop=async(category,ci)=>{
   
 
 //check if that specific user has already posted the same crops detail already
-const [rows, fields] = await connection.query("SELECT * FROM "+category+" where farmer_id='"+ci.farmer_id+"' and crop_name='"+ci.crop_name+"' ")
-if(typeof rows[0]=='object'){
-  console.log("category farmerid and cropname matched")
+const [rows, fields] = await connection.query("SELECT * FROM "+category+" where crop_id='"+ci.crop_id+"' ")
 
-  await connection.query("update "+category+" set farmers_rate='"+ci.farmers_rate+"',market_rate='"+ci.farmers_rate+"',crop_details='"+ci.crop_details+"',image='"+ci.image+"' where farmer_id='"+ci.farmer_id+"' and crop_name='"+ci.crop_name+"'")
+if(typeof rows[0]=='object'){
+  let farmer_id=rows[0].farmer_id
+  console.log("crop id matched now ready to update")
+
+  await connection.query("update "+category+" set crop_name='"+ci.crop_name+"',farmers_rate='"+ci.farmers_rate+"',market_rate='"+ci.market_rate+"',crop_details='"+ci.crop_details+"',image='"+ci.image+"',imagename='"+ci.imagename+"' where crop_id='"+ci.crop_id+"'")
 
   console.log("details update bhayo")
   return "updated"

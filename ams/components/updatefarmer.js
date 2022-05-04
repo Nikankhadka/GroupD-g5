@@ -114,7 +114,7 @@ export default function Farmer(){
         </div>
          {errors.family && <p className="p1">enter family</p>}
 
-         <button  className="login-form-btn"  onClick={handleSubmit(click)}>Update</button> 
+         <button  type="submit" className="login-form-btn"  onClick={handleSubmit(click)}>Update</button> 
 
      </form>
            

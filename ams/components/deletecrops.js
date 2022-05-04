@@ -47,7 +47,7 @@ export default function Deletecrops(){
    
     //callback to pass into modal componnet so that it executes only after the continue button is clicked
        function Action(){
-        api.Action(imagename,selected,cropid,modalsetter)
+        api.Deletecrop(imagename,selected,cropid,modalsetter)
        }
 
        function modalsetter(){
