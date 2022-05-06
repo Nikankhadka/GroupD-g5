@@ -101,7 +101,7 @@ export async function Postcrop(category,update,modelsetter){
 export async function Authorize(verify){
         await axios.get("http://localhost:2900/api/v1/login",{withCredentials:true}).then(result=>{
                 //pass result as parameter in call back function
-                        
+                        console.log(result.data);
                         verify(result.data)
         })
 }

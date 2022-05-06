@@ -27,7 +27,11 @@ body {
   background: rgba(0, 0, 0, 0.6);
 }
 
-
+.container-login{
+  height:auto;
+   bottom:0;
+  overflow:auto;
+}
 /* main modal container */
 .modalContainer {
   width: 500px;

@@ -19,9 +19,12 @@ export default function Authorize(){
   //function checks for result fromt the authorization calls then only reners the page
       function verify(result){
           
-          if(result==true){
+          if(result=="admin"){
               window.location.href="./admin"
              
+          }else if(result=="user"){
+            window.location.href="./user"
+            
           }else{
             setcheck(true)
           }

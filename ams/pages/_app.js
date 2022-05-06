@@ -12,6 +12,7 @@ import'../styles/postcrop.css'
 import'../styles/deletecrop.css'
 import'../styles/model.css'
 import'../styles/updatecrop.css'
+import'../styles/info.css'
 
 
 function MyApp({ Component, pageProps }) {

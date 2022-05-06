@@ -1,6 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
 
+#cancelbtn{
+    padding:15px 25px 15px 25px;
+    background-color: rgb(105, 207, 134);
+    border-radius:10px;
+}
+
+
 .cropsview{
     display:flex;
     flex-direction:row;
@@ -68,6 +75,8 @@ body {
     width: 880px;
     display: flex;
     box-shadow: 0 1px 20px 0 rgba(69, 90,100,0.08);
+    flex-flow:row wrap;
+    margin-top:50px;
     
 }
 

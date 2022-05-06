@@ -1,7 +1,7 @@
 
 const conn = require("./db");
 
-
+var usercropsarray=[];
 
 
 
@@ -56,14 +56,19 @@ exports.login=async(username,password)=>{
 
 
 //will get user and veridy whether the user info is in databse or not
-exports.veruser=async(username)=>{
+exports.veruser=async(userid)=>{
   connection =await conn()
-
-  const [rows, fields] = await connection.query("SELECT * FROM `users` where user_name='"+username+"'")
-  console.log(rows)
-  if ( rows[0]){
-    return(true)
+  
+  const [rows, fields] = await connection.query("SELECT * FROM `users` where user_id='"+userid+"'")
+  if(rows[0]){
+    console.log("rowma ")
+    console.log(rows[0].user_id)
+    return (rows[0].user_id)
+  }else{
+    console.log("eklse ma ")
+    return (false)
   }
+
 }
 
 
@@ -377,4 +382,159 @@ exports.updatefarmer=async(ci)=>{
 
   console.log("farmer info update bhayo")
   return "updated"
+}
+
+
+
+
+//usercrops 
+exports.usercrops=async(user_id)=>{
+  
+  //clear array and new object data in each calll
+  usercropsarray.pop();
+  connection=await conn()
+  const[rows1,fields]=await connection.query("SELECT * FROM `crops_category`")
+  
+  //run loop for each category checking with user id to get his crop info
+  for(let i=0;i<rows1.length;i++){
+    
+    const[rows2,fields]=await connection.query("SELECT * FROM "+rows1[i].category+" where farmer_id='"+user_id+"' ")
+    
+    //loop through each array get objects and push it
+    rows2.forEach(e=>{
+      usercropsarray.push(e);
+    } )
+
+  }
+
+  return (usercropsarray)
+  
+
+}
+
+
+//crops posting model for user
+exports.userpost=async(main,user,category)=>{
+  connection=await conn()
+  
+  var exist=0;
+
+//check if that specific user has already posted the same crops detail already
+const [rows, fields] = await connection.query("SELECT * FROM "+category+" ")
+rows.forEach(e=>{
+  if(e.farmer_id==user && e.crop_name==main.crop_name){
+    exist=1
+    console.log("farmer reposted the same information")
+  }
+  else{
+    console.log("crop posting not repeated")
+  }
+})
+
+if(exist){
+  console.log("same crop info from same farmer")
+  return "alposted"
+}else{
+  //generate unique id for crop
+  let pid=Date.now();
+
+  //insert crop details into crop specific category table
+   await connection.query("insert into "+category+" VALUES ('"+user+"','"+pid+"','"+main.crop_name+"','"+main.farmers_rate+"','"+main.market_rate+"','"+main.crop_details+"','"+main.image+"','"+main.imagename+"') ")
+
+  //now take the farmer id and check if that farmer exist in info if then dont insert just update if not inser new data 
+
+const [rows2, fields] = await connection.query("SELECT * FROM `farmer` WHERE farmer_id='"+user+"' ")
+if(typeof rows2[0]=='object'){
+  console.log("farmer details exist")
+  let post=rows2[0].posting+1;
+   await connection.query("update `farmer` set posting='"+post+"' where farmer_id='"+user+"'")
+  console.log("updated farmer posting ")
+  return (true)
+}
+else{
+ 
+  return (false)
+}
+
+}}
+
+
+
+//model for deleting crops 
+exports.userdelete=async (id)=>{
+ 
+  connection=await conn()
+  const[rows5,feilds0]=await connection.query("SELECT * FROM `crops_category` ")
+  console.log(rows5);
+    for( let i=0;i<rows5.length;i++){
+      console.log("yo chai obj ho hai"+rows5[i])
+      const[rows,feilds]= await connection.query("SELECT * FROM "+rows5[i].category+" WHERE crop_id='"+id+"'")
+
+      if(rows[0]){
+        let farmer_id=rows[0].farmer_id;
+        console.log("got farmer id")
+
+        //delete row of crop info
+     await connection.query("delete from "+rows5[i].category+" where crop_id='"+id+"'")
+    console.log("deleted row of crop info")
+        //now use above farmer id to change info in farmer table 
+    const[rows1,feilds1]= await connection.query("SELECT * FROM `farmer` WHERE farmer_id='"+farmer_id+"'")
+    var posting=rows1[0].posting-1
+    if(posting==0){
+      console.log("farmer posting is 0 make sure to input atleast one crop")
+      return (true)
+    
+    }else{
+       await connection.query("update `farmer` set posting='"+posting+"' where farmer_id='"+farmer_id+"'")
+      console.log("farmer posting updated")
+      return (true)
+     
+    }
+
+      
+      }
+      console.log("crop not matched")
+    
+  }
+}
+
+
+
+
+  
+
+  
+
+
+//for updating crop info
+
+
+exports.userupdate=async(cropid,ci)=>{
+  connection=await conn()
+  
+  const[rows5,feilds0]=await connection.query("SELECT * FROM `crops_category` ")
+  console.log(rows5);
+    for( let i=0;i<rows5.length;i++){
+      console.log("yo chai obj ho hai"+rows5[i])
+      const[rows,feilds]= await connection.query("SELECT * FROM "+rows5[i].category+" WHERE crop_id='"+cropid+"'")
+
+      
+if(typeof rows[0]=='object'){
+  let farmer_id=rows[0].farmer_id
+  console.log("crop id matched now ready to update")
+
+  await connection.query("update "+rows5[i].category+" set crop_name='"+ci.crop_name+"',farmers_rate='"+ci.farmers_rate+"',market_rate='"+ci.market_rate+"',crop_details='"+ci.crop_details+"',image='"+ci.image+"',imagename='"+ci.imagename+"' where crop_id='"+cropid+"'")
+
+  console.log("details update bhayo")
+  return "updated"
+ 
+
+}else{
+  console.log("not matched")
+}
+
+}
+
+
+
 }

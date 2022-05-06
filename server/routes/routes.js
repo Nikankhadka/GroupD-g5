@@ -13,6 +13,7 @@ module.exports = async(app) => {
 
    //login route and logout
   router.post("/login",await controllers.logins);
+  //authentication for pages
   router.get("/login",controllers.authtoken,await controllers.auth);
   router.delete("/login",await controllers.deletecokie)
 
@@ -37,6 +38,13 @@ module.exports = async(app) => {
 router.get("/farmer",await controllers.farmer);
 router.patch("/farmer",await controllers.updatefarmer);
 
+
+//get farmers crop information
+//using authtoken middle ware to get user information from cookie token then get crops according to the user
+router.get("/usercrops",controllers.authtoken,await controllers.usercrops);
+router.post("/userpost/:category",controllers.authtoken,await controllers.userpost);
+router.delete("/userdelete/:cropid",await controllers.userdelete)
+router.patch("/userupdate/:cropid",await controllers.userupdate)
 
 
    app.use("/api/v1", router);

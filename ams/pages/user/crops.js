@@ -1,5 +1,5 @@
 import Usernav from "../../components/usernav";
-
+import Cropd from "../../components/cropdetail";
 
 export default function Crops(){
 
@@ -9,7 +9,7 @@ export default function Crops(){
             <div>
                 <Usernav/>
 
-                <p> this is crops page</p>
+                <Cropd />
             </div>
     )
 }

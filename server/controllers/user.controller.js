@@ -109,7 +109,8 @@ exports.authtoken=(req,res,next)=>{
 
 
               if(token==null){
-                return res.sendStatus(401)
+                console.log("nul token")
+                return res.send(false);
               }else{
                 console.log("token"+token)
                 jwt.verify(token,process.env.ACCESS_TOKEN_SECRET,(err,user)=>{
@@ -118,6 +119,7 @@ exports.authtoken=(req,res,next)=>{
                     return res.sendStatus(403)
                   }
                   else{
+                    //assigninig user into req.user
                     req.user=user
                     console.log(req.user)
                     next()
@@ -125,7 +127,7 @@ exports.authtoken=(req,res,next)=>{
                 })
               }
       }else{
-        res.send("nocokie")
+        res.send(false)
        
       }
  
@@ -142,10 +144,15 @@ exports.authtoken=(req,res,next)=>{
 //for authentication in each acess of page where the validation is required
 
 exports.auth=async(req,res)=>{
-  if(mod.veruser(req.user.name)){
-    res.send(true)
+  //using the user id we get from the token stored in cookie
+  const login=await mod.veruser(req.user.name)
+  if(!login){
+    console.log("no user")
+    res.send(false);
+  }else if(login=="admin"){
+    res.send("admin")
   }else{
-    response.sendStatus(404)
+    res.send(login);
   }
 }
 
@@ -305,3 +312,65 @@ else{
   res.status(200).send("updated")
 }
 }
+
+
+//user crops details 
+exports.usercrops=async(req,res)=>{
+  //passing user name that we get cookie through auth middleware
+  
+  const usercropdetails=await mod.usercrops(req.user.name);
+
+  if(usercropdetails){
+    console.log(usercropdetails)
+    res.send(usercropdetails);
+    console.log("array ko response gayo hai")
+  }else{
+    res.send(false);
+  }
+
+}
+
+
+
+///user crops posting 
+
+exports.userpost=async(req,res)=>{
+  const main=req.body.update;
+  const user=req.user.name;
+  const category=req.params.category
+  if(await mod.userpost(main,user,category)){
+    res.send(true);
+  }else{
+    res.send(false)
+  }
+}
+
+
+//user delete
+
+exports.userdelete=async(req,res)=>{
+  const cropid=req.params.cropid;
+  if(await mod.userdelete(cropid)){
+    res.send(true);
+  }else{
+    res.send(false)
+  }
+}
+
+
+
+
+//update crop
+exports.userupdate=async(req, res)=>{
+  //using route paramets toa accept a single
+ const mbody=req.body.update
+  console.log(mbody)
+  console.log(req.params.cropid)
+const check= await mod.userupdate( req.params.cropid,mbody)
+if(check=="updated"){
+  res.status(200).send("updated");
+}else{
+ 
+  res.send("enter valid category and with valid crop and farmer id")
+ 
+}}
