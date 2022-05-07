@@ -1,4 +1,4 @@
-/* Nikan khadka */
+
 
 /* main body of the about us page */
 .About-body{
@@ -9,6 +9,7 @@ text-align: center;
 /* heading  */
 .headding{
     padding: 2rem;
+    margin-left: 180px;
 }
 
 
@@ -28,8 +29,12 @@ text-align: center;
 
 .content{
     width: 650px;
-    margin: 1rem;
+    margin-top: 50px;
     padding: 1rem;
+}
+
+.content h1{
+    margin-bottom: 20px;
 }
 .content p h2{
     display: inline-block;

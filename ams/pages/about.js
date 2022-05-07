@@ -19,7 +19,7 @@ export default function About(){
                            About us
                        </h1>
                        <p>
-                       In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available. Wikipedia
+                       We here at Agriculture Management have been working for the past 10 years to bring quality goods and products to our valuable customer all over the world without any comprpmisation. We are all about quality assurance and finished good delivery.
                        </p>
                    </div>
                </div>
