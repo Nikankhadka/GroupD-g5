@@ -36,7 +36,8 @@ module.exports = async(app) => {
 
 //farmer  info and update farmer info
 router.get("/farmer",await controllers.farmer);
-router.patch("/farmer",await controllers.updatefarmer);
+//use middle ware to get user id tro updte the farmer info
+router.patch("/farmer",controllers.authtoken,await controllers.updatefarmer);
 
 
 //get farmers crop information

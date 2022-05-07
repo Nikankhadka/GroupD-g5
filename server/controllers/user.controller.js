@@ -300,18 +300,6 @@ if(check=="notmatched"){
 
 
 
-//update farnmer info
-exports.updatefarmer=async(req,res)=>{
-  const mbody=req.body.data1
-  console.log(mbody )
-  const check= await mod.updatefarmer(mbody)
-  if(check=="notupdated"){
-    res.send("famer information not updated")
-}
-else{
-  res.status(200).send("updated")
-}
-}
 
 
 //user crops details 
@@ -374,3 +362,18 @@ if(check=="updated"){
   res.send("enter valid category and with valid crop and farmer id")
  
 }}
+
+
+//update farnmer info
+exports.updatefarmer=async(req,res)=>{
+  const farmer=req.user.name;
+  const mbody=req.body.data1
+  console.log(mbody )
+  const check= await mod.updatefarmer(farmer,mbody)
+  if(check=="notupdated"){
+    res.send("famer information not updated")
+}
+else{
+  res.status(200).send("updated")
+}
+}

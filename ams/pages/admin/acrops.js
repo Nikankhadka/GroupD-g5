@@ -16,16 +16,21 @@ export default function Authorize(){
 
 const [check,setcheck]=useState(false)
 //function checks for result fromt the authorization calls then only reners the page
-    function verify(result){
-        
-        if(result==true){
-            console.log("chalyo hai ya")
-           setcheck(true)
-        }else{
-            alert("please login to come")
-             window.location.href="../loginpage"
-        }
+function verify(result){
+    console.log(result)
+    if(!result){
+        alert("please login to come")
+         window.location.href="../loginpage"
+       
+    }else if(result=="admin"){
+        console.log("chalyo hai ya")
+        setcheck(true)
+       
     }
+    else{
+        window.location.href="../user"
+    }
+}
 
 
 

@@ -148,7 +148,7 @@ export default function Cropupdate(props){
                     {e1? <p className="p1">crop Exist/new Input please</p>:console.log({e1})}
         <div class="btn-container">
         <div class="login-form-btn-container">
-                       <input type="submit" class="login-form-btn" value="Post crop"/>
+                       <input type="submit" class="login-form-btn" value="update crop"/>
                    </div>
                    
                    <div className="footer">

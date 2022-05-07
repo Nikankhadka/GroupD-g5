@@ -374,11 +374,12 @@ exports.farmerinfo=async()=>{
 
 
 //update farmers info
-exports.updatefarmer=async(ci)=>{
+exports.updatefarmer=async(farmer,ci)=>{
 
   connection=await conn()
-
-  await connection.query("update `farmer` set name='"+ci.name+"',province='"+ci.province+"',ward='"+ci.ward+"',family='"+ci.family+"' where farmer_id='"+ci.farmer_id+"' ")
+  await connection.query("update `users` set user_name='"+ci.user_name+"',password='"+ci.password+"' where user_id='"+farmer+"' ")
+  console.log("user table name pass updated")
+  await connection.query("update `farmer` set name='"+ci.user_name+"',province='"+ci.province+"',ward='"+ci.ward+"',family='"+ci.family+"' where farmer_id='"+farmer+"' ")
 
   console.log("farmer info update bhayo")
   return "updated"

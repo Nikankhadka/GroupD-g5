@@ -26,7 +26,7 @@ import axios from 'axios';
             <nav className="nav1">
             <div className="home">
             <Link href="/user"><a><img  class="adimg"src="/user.png"  alt="image load bhayena"/></a></Link>
-        
+            <Link href="/user/userupdate"><a><img  src="/setting.png"  alt="image load bhayena"/></a></Link>
               <button  onClick={()=>{
                    setModalOpen(true)
               }}> <img src="/log-out.png"  alt="image load bhayena"/></button>  
@@ -38,7 +38,7 @@ import axios from 'axios';
             
                 <Link href="/user/crops"><a>Crops</a></Link>
                 <Link href="/user/mycrops"><a>My Crops </a></Link>
-                <Link href="/user/cropsetting"><a>Crops Settings</a></Link>
+                <Link href="/user/postcrop"><a>post crop</a></Link>
                 
             </div>
             
