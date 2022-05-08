@@ -6,7 +6,7 @@ import axios from "axios"
 import Confirm from "../../components/confirmation";
 import Usernav from "../../components/usernav";
 import Alert from "../../components/alert"
-
+import * as api from "../../Api/apicall";
 
 
 

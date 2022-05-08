@@ -26,14 +26,14 @@ export default function Alert(props){
           </div>
         
           <div className="footer">
-            <button
+            <button 
               onClick={() => {
                 window.location.href="/loginpage"
                 
               }}
              
             >
-              Continue to Login
+              Continue
             </button>
            
           </div>

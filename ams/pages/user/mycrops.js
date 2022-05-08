@@ -116,27 +116,9 @@ export default function Authorize(){
            {crop.map(c=>(<div className="wrapper">
                                    <div class="left">
                                        <img src={c.image} className="cropimg"/>
+                                       <div class="box-text">
                                        <p className="ptag p_bold">{c.crop_name}</p>
-                                   </div> 
-                                   <div class="right">
-   
-                                       <div class="finfo">   
-                                           <h2>Information</h2>
-                                           <div class="info_data">
-                                               <div class="data d_m">
-                                                   <p><span class="b_letters">Detail</span>:{c.crop_details}</p>
-                                               </div>
-                                               <div class="data d_m">
-                                                   <p><span class="b_letters">Crop_id</span>:{c.crop_id}</p>
-                                               </div>
-   
-                                               <div class="data">
-                                                   <p><span class="b_letters">Market-rate</span>:{c.market_rate} Rs/Kg</p>
-                                               </div>
-                                               <div class="data">
-                                                   <p><span class="b_letters">Farmer-rate</span>:{c.farmers_rate} Rs/Kg</p>
-                                               </div>
-                                               <button  className="login-form-btn li_btn" value={c.crop_id} onClick={()=>{
+                                       <button  className="lbtn" value={c.crop_id} onClick={()=>{
                                                    setModalOpen(true);
                                                    setcropid(c.crop_id);
                                                }}>delete</button>
@@ -144,16 +126,18 @@ export default function Authorize(){
 
 
 
-                                               <button  className="login-form-btn li_btn" value={c.crop_id} onClick={()=>{
+                                               <button  className="elbtn" value={c.crop_id} onClick={()=>{
                                                    setupdateModal(true)
                                                    setcropid(c.crop_id);
                                                    console.log(cropid)
                                                }}>update</button>
-
-                                           </div>
+                                       </div>
+                                       
+                                   </div> 
+                                   
    
-                                       </div>       
-                                   </div>   
+                                             
+                                     
                                    </div>))}
            </div>
           

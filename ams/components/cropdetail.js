@@ -147,7 +147,7 @@ function Crop(props){
     return(
         <div>
             <div className="wrapper">
-                                <div class="left">
+                                <div class="wleft">
                                     <img src={props.detail.image} className="cropimg"/>
                                     <p className="ptag p_bold">{props.detail.crop_name}</p>
                                 </div> 
@@ -157,17 +157,17 @@ function Crop(props){
                                         <h2>Information</h2>
                                         <div class="info_data">
                                             <div class="data d_m">
-                                                <p><span class="b_letters">Detail</span>:{props.detail.crop_details}</p>
+                                                <p><span class="b_letters">Detail</span>: {props.detail.crop_details}</p>
                                             </div>
-                                            <div class="data d_m">
-                                                <p><span class="b_letters">Crop_id</span>:{props.detail.crop_id}</p>
+                                            <div class="data d_m cd">
+                                                <p><span class="b_letters">Crop_id</span>: {props.detail.crop_id}</p>
                                             </div>
 
                                             <div class="data">
-                                                <p><span class="b_letters">Market-rate</span>:{props.detail.market_rate} Rs/Kg</p>
+                                                <p><span class="b_letters">Market-rate</span>: {props.detail.market_rate} Rs/Kg</p>
                                             </div>
                                             <div class="data">
-                                                <p><span class="b_letters">Farmer-rate</span>:{props.detail.farmers_rate} Rs/Kg</p>
+                                                <p><span class="b_letters">Farmer-rate</span>: {props.detail.farmers_rate} Rs/Kg</p>
                                             </div>
                                         </div>
 
@@ -177,22 +177,22 @@ function Crop(props){
                                         <h2>Farmer Details:</h2>
                                         <div class="f_data">
                                             <div class="data">
-                                                <p><span class="b_letters l">Farmer</span>:{props.detail.farmername}</p>
+                                                <p><span class="b_letters l">Farmer</span>: {props.detail.farmername}</p>
                                             </div>
                                             <div class="data">
-                                                <p><span class="b_letters l">Id</span>:{props.detail.farmer_id}</p>
+                                                <p><span class="b_letters l">Id</span>: {props.detail.farmer_id}</p>
                                             </div>
                                             <div class="data l_m">
-                                                <p><span class="b_letters ">Total-posting</span>:{props.detail.posting}</p>
+                                                <p><span class="b_letters ">Total-posting</span>: {props.detail.posting}</p>
                                             </div>
                                             <div class="data l_m">
-                                                <p><span class="b_letters ">Province</span>:{props.detail.province}</p>
+                                                <p><span class="b_letters ">Province</span>: {props.detail.province}</p>
                                             </div>
                                             <div class="data">
-                                                <p><span class="b_letters">Ward</span>:{props.detail.ward}</p>
+                                                <p><span class="b_letters">Ward</span>: {props.detail.ward}</p>
                                             </div>
                                             <div class="data">
-                                                <p><span class="b_letters">Family</span>:{props.detail.family}</p>
+                                                <p><span class="b_letters">Family</span>: {props.detail.family}</p>
                                             </div>
                                             
 
