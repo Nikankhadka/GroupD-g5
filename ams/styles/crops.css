@@ -10,11 +10,14 @@
 
 .cropsview{
     display:flex;
-    flex-direction:row;
+    flex-flow:row wrap;
     justify-content:center;
     align-items:center;
     
 }
+
+
+
 .category{
 
     display: flex;
@@ -41,8 +44,29 @@
     
     .category button:hover{
         background-color: whitesmoke;
-        color: rgb(49, 121, 49);
+        color: rgb(134, 204, 134);
     }
+
+.cropbtn{
+    border:1px solid rgb(3, 3, 3);
+    margin:10px;
+    padding:10px;
+    border-radius:10px;
+    background-color: rgb(193, 236, 221);
+    box-shadow: 0 1px 20px 0 rgba(69, 90,100,0.08);
+}
+
+.cropimgbtn{
+    width:255px;
+    height:270px;
+    border-radius:6px;
+}
+
+
+
+
+
+
     
 * {
     margin: 0;
@@ -76,6 +100,7 @@ body {
     display: flex;
     box-shadow: 0 1px 20px 0 rgba(69, 90,100,0.08);
     flex-flow:row wrap;
+    margin:auto;
     margin-top:50px;
     
 }
