@@ -27,27 +27,7 @@ export async function Crops(set,e){
 }
 
 
-//function to post crop
-export async function Postcrop(category,update,modelsetter){
-       
-        axios.post(`http://localhost:2900/api/v1/crops/${category}`,{update})
-            .then(res =>  {
-                if(res.data=="posted"){
-                    alert("crop "+update.crop_name+" succesfully posted")
-                    //passed as callback to setmodel to false
-                        modelsetter();
-                   
-                }else{
-                    alert("crop not posted already exist")
-                
-                    //passed as callback to setmodel to false
-                    modelsetter();
-                }
-    
-    
-        })
-        
-}
+
 
 
  // Action to delete crop 

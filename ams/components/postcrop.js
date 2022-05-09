@@ -4,6 +4,7 @@ import axios from "axios"
 import {ref,getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import {storage}  from "../pages/base"
 import Confirm from "./confirmation";
+import Alert from "./alert";
 
 import * as api from "../Api/apicall"
 
@@ -13,7 +14,7 @@ export default function Postcrop(){
     const [modalOpen, setModalOpen] = useState(false);
     const [data1,setdata1]=useState({})
     const [progress, setProgress] = useState(false);
-
+    const [alert,setalert]=useState(false)
     
     //react hook form makes it easier to acess and use hooks
     const {register,handleSubmit,formState: { errors }}=useForm();
@@ -90,7 +91,7 @@ export default function Postcrop(){
         
 
         //call post crop api function from api call
-       api.Postcrop(update.category,update,modelsetter)
+       Postcropdb(update.category,update,modelsetter)
     
 
        }
@@ -101,14 +102,35 @@ export default function Postcrop(){
            console.log("dettetetete")
            setModalOpen(false)
        }
+//function to post crop
+async function Postcropdb(category,update,modelsetter){
+       
+    axios.post(`http://localhost:2900/api/v1/crops/${category}`,{update})
+        .then(res =>  {
+            if(res.data=="posted"){
+              setalert(true); 
+                //passed as callback to setmodel to false
+                    modelsetter();
+               
+            }else{
+                alert("crop not posted already exist")
+            
+                //passed as callback to setmodel to false
+                modelsetter();
+            }
 
+
+    })
+    
+}
 
     return(  
         <div>
             {modalOpen && <Confirm setOpenModal={setModalOpen} action1={Action} />}
 
 
-
+            {/* alert */}
+        {alert && <Alert setalert={setalert} msg={"Crop Posted Succesfully"} />}
             <div className="cs_set">
              
              <div className="green_bg"></div>

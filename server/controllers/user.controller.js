@@ -35,7 +35,6 @@ exports.signup=async(req,res)=>{
 
 
 
-
 //Login
 exports.logins=async(req, res)=>{
     
