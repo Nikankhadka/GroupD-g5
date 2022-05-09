@@ -1,7 +1,7 @@
 import Navbar from "../components/navbar"
 import Link from 'next/link';
 import { useForm } from "react-hook-form";
-import {useState} from 'react';
+
 
 import axios from 'axios';
 import Confirm from "../components/confirmation";
@@ -9,9 +9,63 @@ import Alert from "../components/alert"
 
 
 
+import { useState ,useEffect} from "react"
+import * as api from "../Api/apicall"
 
 
-export default function Signup(){
+
+
+
+
+export default function Authorize(){
+
+
+
+
+    const [check,setcheck]=useState(false)
+    //function checks for result fromt the authorization calls then only reners the page
+    function verify(result){
+      console.log(result)
+      if(!result){
+        setcheck(true)
+         
+      }else if(result=="admin"){
+        window.location.href="../admin"
+        console.log("chalyo hai ya")
+          
+         
+      }
+      else{
+          window.location.href="../user"
+      }
+  }
+    
+    
+    
+        //call api function
+        useEffect(()=>{
+           
+            api.Authorize(verify)
+        },[]);
+    
+        //once everything is verified then only the page will be rendered
+        return(
+            <div>
+                {check && <Signup />}
+            </div>
+    
+    
+        )
+    
+    
+       
+    }
+    
+
+
+
+
+function Signup(){
     
 
 
