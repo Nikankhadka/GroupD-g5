@@ -64,7 +64,7 @@ export default function Signup(){
             {/* nav bar for the login page  */}
         <Navbar/> 
         {/* alert */}
-        {alert && <Alert setalert={setalert} msg={"signIn succesfully"} />}
+        {alert && <Alert setalert={setalert} msg={"SignIn Succesfully"} />}
         {/* confirmation */}
         {modalOpen && <Confirm setOpenModal={setModalOpen} action1={Action} />}
         <div class="container-login">

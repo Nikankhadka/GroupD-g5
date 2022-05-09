@@ -26,7 +26,7 @@ import axios from 'axios';
                     <nav className="nav1">
             <div className="home">
             <Link href="/admin"><a><img  class="adimg"src="/user.png"  alt="image load bhayena"/></a></Link>
-            <Link href="#"><a><img  src="/setting.png"  alt="image load bhayena"/></a></Link>
+           
               <button  onClick={()=>{
                    setModalOpen(true)
               }}> <img src="/log-out.png"  alt="image load bhayena"/></button>  

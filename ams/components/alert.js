@@ -15,7 +15,7 @@ export default function Alert(props){
           <div className="titleCloseBtn">
             <button
               onClick={() => {
-                props.setalert(false);
+                
               }}
             >
               X
@@ -28,12 +28,12 @@ export default function Alert(props){
           <div className="footer">
             <button 
               onClick={() => {
-                window.location.href="/loginpage"
+                props.setalert(false);
                 
               }}
              
             >
-              Continue
+              Okay
             </button>
            
           </div>
