@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import {useState,useEffect} from 'react';
 import axios from "axios"
 import Confirm from "./confirmation";
+import Alert from "./alert";
+import { getStorage, ref, deleteObject } from "firebase/storage";
 
 import * as api from "../Api/apicall"
 
@@ -9,6 +11,7 @@ export default function Deletecrops(){
     const [category, setcategory] = useState([]);
     const [crop, setcrop] = useState([]);  
     const {register,handleSubmit,formState: { errors }}=useForm();
+    const [alert,setalert]=useState(false)
    
     //main part
     const [selected,setselected]=useState("")
@@ -47,12 +50,53 @@ export default function Deletecrops(){
    
     //callback to pass into modal componnet so that it executes only after the continue button is clicked
        function Action(){
-        api.Deletecrop(imagename,selected,cropid,modalsetter)
+        Deletecrop(imagename,selected,cropid)
+        setModalOpen(false)
        }
 
-       function modalsetter(){
-           setModalOpen(false)
-       }
+       
+       
+ // Action to delete crop 
+  function Deletecrop(imagename,selected,cropid){
+    console.log("action bitra"+imagename)
+//delete image from ffirebase cloud storage
+
+//cretae storage ref with getstorage function
+const storage=getStorage();
+//reference to file that u want to delete
+const fileref=ref(storage,`files/${imagename}`)
+//delete the file
+deleteObject(fileref).then(()=>{
+    console.log("deleted")
+}).catch((error)=>{
+    console.log(error);
+
+})
+
+   const del={
+    crop_id:cropid
+   }
+
+   console.log(del)
+    axios.delete(`http://localhost:2900/api/v1/crops/${selected}/${cropid}`).then(
+        result =>{
+            if(result.data=="deleted"){
+                setalert(true);
+            setModalOpen(false);
+                
+            
+                             //callback to set modal to false
+                             
+            }else{
+                alert("crop failed to delete")
+                             //callback to set modal to false
+                            setModalOpen(false);
+            }
+        }
+    )
+
+}
+
 
 
 
@@ -96,6 +140,8 @@ export default function Deletecrops(){
                     
                 }}>
                 <div class="crop">
+                       {/* alert */}
+        {alert && <Alert setalert={setalert} msg={"Crop Deleted Succesfully"} />}
 
                 <img src={c.image} className="cropimg"/>
                 <p className="ptag">{c.crop_name}</p>

@@ -8,6 +8,7 @@ import {storage}  from "../pages/base"
 import { useForm } from "react-hook-form";
 import {useState} from 'react'
 import axios from "axios"
+import Alert from "./alert";
 
 
 
@@ -17,6 +18,7 @@ export default function Mainform(props){
     const {register,handleSubmit,formState: { errors }}=useForm();
     const [modalOpen, setModalOpen] = useState(false);
     const [data1,setdata1]=useState({})
+    const [alert,setalert]=useState(false)
 
 
 
@@ -71,8 +73,8 @@ export default function Mainform(props){
             axios.patch(`http://localhost:2900/api/v1/crops/${update.category}`,{update})
             .then(res =>  {
                 if(res.data=="updated"){
-                    alert("crop "+data.crop_name+" succesfully updated")
-                    setModalOpen(false)
+                    setalert(true);
+                    setModalOpen(false);
                 }else{
                     alert("please enter valid farmerid and cropname and select category acoordingly")
                 }
@@ -82,10 +84,10 @@ export default function Mainform(props){
 
     }
 
-
     return(
         <div>
-
+ {/* alert */}
+ {alert && <Alert setalert={setalert} msg={"Crop Updated Succesfully"} />}
 
              {/* modal for action on the form */}
         {modalOpen && <Confirm setOpenModal={setModalOpen} action1={Action} />}

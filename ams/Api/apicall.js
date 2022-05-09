@@ -30,45 +30,6 @@ export async function Crops(set,e){
 
 
 
- // Action to delete crop 
- export function Deletecrop(imagename,selected,cropid,modalsetter){
-        console.log("action bitra"+imagename)
-    //delete image from ffirebase cloud storage
-
-    //cretae storage ref with getstorage function
-    const storage=getStorage();
-    //reference to file that u want to delete
-    const fileref=ref(storage,`files/${imagename}`)
-    //delete the file
-    deleteObject(fileref).then(()=>{
-        console.log("deleted")
-    }).catch((error)=>{
-        console.log(error);
-
-    })
-
-       const del={
-        crop_id:cropid
-       }
-
-       console.log(del)
-        axios.delete(`http://localhost:2900/api/v1/crops/${selected}/${cropid}`).then(
-            result =>{
-                if(result.data=="deleted"){
-                    alert("Crop of "+cropid+" succesfully deleted")
-                
-                                 //callback to set modal to false
-                                 modalsetter()
-                }else{
-                    alert("crop failed to delete")
-                                 //callback to set modal to false
-                                modalsetter()
-                }
-            }
-        )
-
-   }
-
 
 
 
