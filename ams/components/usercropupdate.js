@@ -7,7 +7,7 @@ import Confirm from "../components/confirmation";
 import {ref,getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import {storage}  from "../pages/base"
 import axios from "axios";
-
+import Alert from "./alert";
 
 
 
@@ -20,7 +20,7 @@ export default function Cropupdate(props){
        const [e1,sete1]=useState(false);
        const [modalOpen, setModalOpen] = useState(false);
        const [data1,setdata1]=useState({})
-      
+      const[alert,setalert]=useState(false);
    
 
        const onclick=(data)=>{
@@ -71,7 +71,7 @@ export default function Cropupdate(props){
           axios.patch(`http://localhost:2900/api/v1/userupdate/${update.crop_id}`,{update})
           .then(res =>  {
               if(res.data=="updated"){
-                  alert("crop "+data.crop_name+" succesfully updated")
+                 setalert(true)
                   setModalOpen(false)
               }else{
                   alert("crop details not updated")
@@ -92,7 +92,8 @@ export default function Cropupdate(props){
 
         
         <div className="modalback">
-       
+             {/* alert */}
+        {alert && <Alert setalert={setalert} msg={"Crop updated Succesfully"} />}
         
           <div className="title">
             

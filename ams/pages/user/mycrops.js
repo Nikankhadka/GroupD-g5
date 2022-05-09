@@ -85,6 +85,7 @@ export default function Authorize(){
     await axios.delete(`http://localhost:2900/api/v1/userdelete/${cropid}`).then(result=>{
         if(result.data){
             setalert(true)
+            console.log("crop deleted")
             setModalOpen(false);
 
         }

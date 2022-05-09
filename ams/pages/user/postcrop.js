@@ -7,7 +7,7 @@ import Confirm from "../../components/confirmation";
 import {ref,getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import {storage}  from "../base"
 import axios from "axios";
-
+import Alert from "../../components/alert";
 
 
 
@@ -67,7 +67,7 @@ export default function Authorize(){
     const [e1,sete1]=useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const [data1,setdata1]=useState({})
-   
+    const [alert,setalert]=useState(false)
 
 
     const[category,setcategory]=useState([]);
@@ -139,7 +139,7 @@ export default function Authorize(){
          axios.post(`http://localhost:2900/api/v1/userpost/${update.category}`,{update},{withCredentials:true})
          .then(res =>  {
              if(res.data){
-                 alert("crop "+update.crop_name+" succesfully posted")
+                setalert(true)
                  setModalOpen(false)
                  sete1(false)
              }else{
@@ -162,6 +162,8 @@ export default function Authorize(){
 
     return(
         <div>
+                {/* alert */}
+        {alert && <Alert setalert={setalert} msg={"Crop Posted Succesfully"} />}
              {modalOpen && <Confirm setOpenModal={setModalOpen} action1={Action} />}
             <Usernav/>
 

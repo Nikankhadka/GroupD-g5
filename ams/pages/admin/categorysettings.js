@@ -8,7 +8,7 @@ import Confirm from "../../components/confirmation";
 import React, { useMemo, useState, useEffect } from "react";
 import axios from "axios"
 import * as api from "../../Api/apicall"
-
+import Alert from "../../components/alert";
 
 export default function Authorize(){
 
@@ -85,7 +85,7 @@ function verify(result){
 
 function Deletecat(){
     const {register,handleSubmit,formState: { errors }}=useForm();
-    
+    const [alert,setalert]=useState(false)
     const [modalOpen, setModalOpen] = useState(false);
     const [data1,setdata1]=useState({})
     const [category, setcategory] = useState([]);
@@ -114,7 +114,7 @@ function Deletecat(){
         .then(res =>  {
             if(res.data=="deleted"){
                console.log("deleted")
-               alert("Category "+data1.name+" succesfull deleted")
+              setalert(true);
                setModalOpen(false)
             }
 
@@ -125,6 +125,9 @@ function Deletecat(){
 
     return(
         <div> 
+            
+            {/* alert */}
+        {alert && <Alert setalert={setalert} msg={"Category deleted Succesfully"} />}
                     {modalOpen && <Confirm setOpenModal={setModalOpen} action1={Action} />}
         <form className="cat-form" >
         <h2 className="title">Delete Setting</h2>
@@ -162,7 +165,7 @@ function Post(){
     const {register,handleSubmit,formState: { errors }}=useForm();
     const [modalOpen, setModalOpen] = useState(false);
     const [data1,setdata1]=useState({})
-
+    const [alert,setalert]=useState(false)
 
 
     const postcat=(data)=>{
@@ -177,7 +180,7 @@ function Post(){
         axios.post(`http://localhost:2900/api/v1/category/${data1.name}`)
         .then(res =>  {
             if(res.data=="posted"){
-                alert("category "+data1.name+" succesfully posted")
+               setalert(true)
                 setModalOpen(false)
             }else{
                 alert("category not posted cat already exist")
@@ -190,6 +193,9 @@ function Post(){
 
     return(
         <div>
+            
+            {/* alert */}
+        {alert && <Alert setalert={setalert} msg={"Category Posted Succesfully"} />}
             {modalOpen && <Confirm setOpenModal={setModalOpen} action1={Action} />}
         <form className="cat-form" >
         <h2 className="title">Post Setting</h2>
@@ -216,7 +222,7 @@ function Updatecat(){
     const [category, setcategory] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
     const [data1,setdata1]=useState({})
-
+    const [alert,setalert]=useState(false)
     useEffect(async() => {
         await  axios.get(`http://localhost:2900/api/v1/category`)
         .then(result => {
@@ -242,7 +248,7 @@ function Updatecat(){
         axios.patch(`http://localhost:2900/api/v1/category/${data1.name}`,{name1:data1.name1})
         .then(res =>  {
             if(res.data=="updated"){
-                alert("category "+data1.name1+" succesfully updated")
+                setalert(true)
                 setModalOpen(false)
             }else{
                 alert("update not succesful table doesnot exist")
@@ -257,6 +263,9 @@ function Updatecat(){
 
     return(
         <div>
+            
+            {/* alert */}
+        {alert && <Alert setalert={setalert} msg={"Category Updated Succesfully"} />}
         {modalOpen && <Confirm setOpenModal={setModalOpen} action1={Action} />}
         <form className="cat-form" >
         <h2 className="title">Update Setting</h2>

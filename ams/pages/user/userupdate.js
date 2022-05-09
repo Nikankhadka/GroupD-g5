@@ -1,5 +1,5 @@
 
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import {useState,useEffect} from 'react';
 
 import axios from "axios"
@@ -101,7 +101,7 @@ export default function Authorize(){
         .then(res =>  {
             console.log(res)
             if(res.data=="updated"){
-                alert("farmer information succesfully updated")
+                setalert(true)
                 setModalOpen(false)
             }else{
                 alert("failed to update")
@@ -123,7 +123,8 @@ export default function Authorize(){
         <Usernav />
 
 
-
+            {/* alert */}
+            {alert && <Alert setalert={setalert} msg={"Usert detail updated Succesfully"} />}
         <div className="farmer"> 
     {modalOpen && <Confirm setOpenModal={setModalOpen} action1={Action} />}
    
