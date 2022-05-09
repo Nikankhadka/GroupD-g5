@@ -1,7 +1,6 @@
 
 import { useForm } from "react-hook-form";
 import {useState,useEffect} from 'react';
-
 import axios from "axios"
 
 
@@ -15,7 +14,7 @@ export default function Updatecrop(){
     
 
     const {register,handleSubmit,formState: { errors }}=useForm();
-   
+  
    
     const [crop_id,setcrop_id]=useState([])
     const [form,setform]=useState({})
@@ -63,6 +62,7 @@ export default function Updatecrop(){
 
     return(
         <div>
+            
        
 
 
@@ -77,6 +77,7 @@ export default function Updatecrop(){
 
         <form>
         <div className="wrap-input">
+
         <select name="pets" className="input" {...register("category", { required: true })}>
         {/* using array map to map value and return it for option in select tag */}
         {
