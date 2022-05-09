@@ -92,7 +92,7 @@ export default function Updatecrop(){
     {errors.category && <p className="p1">select category</p>}
 
 
-    <button  type="submit" className="login-form-btn" onClick={handleSubmit(formdata)}>getcrop</button>
+    <button  type="submit" className="logbtn" onClick={handleSubmit(formdata)}>getcrop</button>
 
 
     

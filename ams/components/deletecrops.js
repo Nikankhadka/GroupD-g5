@@ -75,7 +75,7 @@ export default function Deletecrops(){
              }
      </select>
      {errors.category && <p className="p1">enter valid category</p>}
-                <button  className="login-form-btn view_btn"  onClick={handleSubmit(onclick)}>View Details</button>
+                <button  className="dada dd_btn"  onClick={handleSubmit(onclick)}>View Details</button>
                 </form>
 
                 <section className="display_info"></section> 
@@ -98,14 +98,14 @@ export default function Deletecrops(){
                 <div class="crop">
 
                 <img src={c.image} className="cropimg"/>
-                <p className="ptag">{c.crop_name}</p>
+                <p className="ptag" id="pbold">{c.crop_name}</p>
                
-                <p>Crop_id:{c.crop_id}</p>
+                <p id="idbold">Crop_id: <span class="extra">{c.crop_id}</span></p>
                 
                 
                
-                <p>Farmer:{c.name}</p>
-                <p>Id:{c.farmer_id}</p>
+                {/* <p>Farmer:{c.name}</p>
+                <p>Id:{c.farmer_id}</p> */}
                 
                
              
