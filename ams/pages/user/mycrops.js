@@ -5,7 +5,7 @@ import Confirm from "../../components/confirmation";
 import Alert from "../../components/alert";
 import Cropupdate from "../../components/usercropupdate";
 import * as api from "../../Api/apicall"
-
+import { getStorage, ref, deleteObject } from "firebase/storage";
 
 //authorize componnet fro allpages of admin and user so they cant route into other pages without logging in 
 
@@ -63,7 +63,8 @@ export default function Authorize(){
     const [cropid, setcropid] = useState([]); 
     const [alert,setalert]=useState(false) 
     const [msg,setmsg]=useState("crop deleted succesfully")
-    const [updateModal, setupdateModal] = useState(false);     
+    const [updateModal, setupdateModal] = useState(false);    
+    const [imagename,setimagename]=useState("") 
     //use react use effect hook which is similar to lifecycle components basically works after loading the page
 
     useEffect(async() => {
@@ -81,6 +82,20 @@ export default function Authorize(){
 
    const Action=async()=>{
     
+    console.log("action bitra"+imagename)
+    //delete image from ffirebase cloud storage
+    
+    //cretae storage ref with getstorage function
+    const storage=getStorage();
+    //reference to file that u want to delete
+    const fileref=ref(storage,`files/${imagename}`)
+    //delete the file
+    deleteObject(fileref).then(()=>{
+        console.log("deleted")
+    }).catch((error)=>{
+        console.log(error);
+    
+    })
 
     await axios.delete(`http://localhost:2900/api/v1/userdelete/${cropid}`).then(result=>{
         if(result.data){
@@ -122,6 +137,7 @@ export default function Authorize(){
                                        <button  className="lbtn" value={c.crop_id} onClick={()=>{
                                                    setModalOpen(true);
                                                    setcropid(c.crop_id);
+                                                   setimagename(c.imagename);
                                                }}>delete</button>
 
 
